@@ -1,7 +1,16 @@
 import { useState } from 'react'
 import type { CompanyData } from '../types'
-import { formatEokwon, formatShares, formatWon } from '../utils/format'
+import {
+  formatCount,
+  formatEokwon,
+  formatPeople,
+  formatPercent,
+  formatShares,
+  formatWon,
+  formatWonPerShare,
+} from '../utils/format'
 import { BarChart } from './charts/BarChart'
+import { LineChart } from './charts/LineChart'
 import { SectionCard } from './SectionCard'
 
 interface CompanyDashboardProps {
@@ -58,8 +67,28 @@ export function CompanyDashboard({ companies, generatedAt, isLive }: CompanyDash
 
       <div className="flex flex-col gap-6">
         <FinancialsSection company={company} />
+        <CostCompositionSection company={company} />
         <InventorySection company={company} />
+        <CashFlowSection company={company} />
+        <CapexSection company={company} />
+        <TangibleAssetsSection company={company} />
+        <EmployeesSection company={company} />
+        <MarketCapSection company={company} />
+        <ValuationBandSection
+          company={company}
+          band={company.perBand}
+          title="PER 밴드 (12M 단순화)"
+          unitFormat={formatWonPerShare}
+        />
+        <ValuationBandSection
+          company={company}
+          band={company.pbrBand}
+          title="PBR 밴드 (12M 단순화)"
+          unitFormat={formatWonPerShare}
+        />
         <OrderBacklogSection company={company} />
+        <OrderDisclosuresSection company={company} />
+        <ConsensusSection company={company} />
         <InvestorFlowSection company={company} />
       </div>
     </SectionCard>
@@ -148,18 +177,20 @@ function InventorySection({ company }: { company: CompanyData }) {
             height={160}
           />
           <div className="mt-3 overflow-x-auto">
-            <table className="tabular w-full min-w-[280px] text-left text-sm">
+            <table className="tabular w-full min-w-[320px] text-left text-sm">
               <thead>
                 <tr className="border-b border-[var(--border)] text-xs text-[var(--text-muted)]">
                   <th className="py-1.5 pr-3 font-medium">기간</th>
-                  <th className="py-1.5 font-medium">재고자산</th>
+                  <th className="py-1.5 pr-3 font-medium">재고자산</th>
+                  <th className="py-1.5 font-medium">재고/매출 비율</th>
                 </tr>
               </thead>
               <tbody>
                 {rows.map((r) => (
                   <tr key={r.period} className="border-b border-[var(--border)] last:border-0">
                     <td className="py-1.5 pr-3 text-[var(--text-secondary)]">{r.period}</td>
-                    <td className="py-1.5 text-[var(--text-primary)]">{formatWon(r.inventory)}</td>
+                    <td className="py-1.5 pr-3 text-[var(--text-primary)]">{formatWon(r.inventory)}</td>
+                    <td className="py-1.5 text-[var(--text-primary)]">{formatPercent(r.inventoryToRevenue)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -219,6 +250,339 @@ function OrderBacklogSection({ company }: { company: CompanyData }) {
           </div>
         </>
       )}
+    </div>
+  )
+}
+
+function CostCompositionSection({ company }: { company: CompanyData }) {
+  const rows = company.financials.filter((r) => r.costOfSales !== null || r.sga !== null)
+  if (rows.length === 0) return null
+
+  const stackSeries = [
+    { key: 'costOfSales', label: '매출원가', color: 'var(--series-2)' },
+    { key: 'sga', label: '판매비와관리비', color: 'var(--series-4)' },
+    { key: 'operatingProfit', label: '영업이익', color: 'var(--series-3)' },
+  ]
+
+  return (
+    <div>
+      <SubsectionHeading icon="🧱" title="매출 구성 (매출원가·판관비·영업이익)" />
+      <BarChart
+        stacked
+        series={stackSeries}
+        lines={[{ key: 'revenue', label: '매출액', color: 'var(--series-1)' }]}
+        data={rows.map((r) => ({
+          label: r.period,
+          values: { costOfSales: r.costOfSales, sga: r.sga, operatingProfit: r.operatingProfit, revenue: r.revenue },
+        }))}
+        formatValue={(v) => formatWon(v)}
+      />
+    </div>
+  )
+}
+
+function CashFlowSection({ company }: { company: CompanyData }) {
+  const rows = company.cashFlow
+  if (rows.length === 0) return null
+
+  const series = [
+    { key: 'cfo', label: '영업CF', color: 'var(--series-1)' },
+    { key: 'cfi', label: '투자CF', color: 'var(--series-2)' },
+    { key: 'cff', label: '재무CF', color: 'var(--series-4)' },
+  ]
+
+  return (
+    <div>
+      <SubsectionHeading icon="💵" title="현금흐름" />
+      <BarChart
+        series={series}
+        lines={[{ key: 'fcf', label: 'FCF', color: 'var(--series-3)' }]}
+        data={rows.map((r) => ({ label: r.period, values: { cfo: r.cfo, cfi: r.cfi, cff: r.cff, fcf: r.fcf } }))}
+        formatValue={(v) => formatWon(v)}
+      />
+      <div className="mt-3 overflow-x-auto">
+        <table className="tabular w-full min-w-[420px] text-left text-sm">
+          <thead>
+            <tr className="border-b border-[var(--border)] text-xs text-[var(--text-muted)]">
+              <th className="py-1.5 pr-3 font-medium">기간</th>
+              <th className="py-1.5 pr-3 font-medium">영업CF</th>
+              <th className="py-1.5 pr-3 font-medium">투자CF</th>
+              <th className="py-1.5 pr-3 font-medium">재무CF</th>
+              <th className="py-1.5 font-medium">FCF</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.period} className="border-b border-[var(--border)] last:border-0">
+                <td className="py-1.5 pr-3 text-[var(--text-secondary)]">{r.period}</td>
+                <td className="py-1.5 pr-3 text-[var(--text-primary)]">{formatWon(r.cfo)}</td>
+                <td className="py-1.5 pr-3 text-[var(--text-primary)]">{formatWon(r.cfi)}</td>
+                <td className="py-1.5 pr-3 text-[var(--text-primary)]">{formatWon(r.cff)}</td>
+                <td className="py-1.5 text-[var(--text-primary)]">{formatWon(r.fcf)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+function CapexSection({ company }: { company: CompanyData }) {
+  const rows = company.capex
+  if (rows.length === 0) return null
+
+  return (
+    <div>
+      <SubsectionHeading icon="🏗️" title="매출과 CAPEX" />
+      <BarChart
+        series={[
+          { key: 'revenue', label: '매출액', color: 'var(--series-1)' },
+          { key: 'capex', label: 'CAPEX', color: 'var(--series-2)' },
+        ]}
+        data={rows.map((r) => ({ label: r.period, values: { revenue: r.revenue, capex: r.capex === null ? null : Math.abs(r.capex) } }))}
+        formatValue={(v) => formatWon(v)}
+      />
+      <div className="mt-3 overflow-x-auto">
+        <table className="tabular w-full min-w-[360px] text-left text-sm">
+          <thead>
+            <tr className="border-b border-[var(--border)] text-xs text-[var(--text-muted)]">
+              <th className="py-1.5 pr-3 font-medium">기간</th>
+              <th className="py-1.5 pr-3 font-medium">CAPEX</th>
+              <th className="py-1.5 font-medium">CAPEX/매출</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.period} className="border-b border-[var(--border)] last:border-0">
+                <td className="py-1.5 pr-3 text-[var(--text-secondary)]">{r.period}</td>
+                <td className="py-1.5 pr-3 text-[var(--text-primary)]">{formatWon(r.capex === null ? null : Math.abs(r.capex))}</td>
+                <td className="py-1.5 text-[var(--text-primary)]">{formatPercent(r.capexToRevenue)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+function TangibleAssetsSection({ company }: { company: CompanyData }) {
+  const rows = company.tangibleAssets
+  if (rows.length === 0) return null
+
+  return (
+    <div>
+      <SubsectionHeading icon="🏭" title="유형자산" />
+      <BarChart
+        series={[
+          { key: 'tangibleAssets', label: '유형자산', color: 'var(--series-1)' },
+          { key: 'capex', label: 'CAPEX', color: 'var(--series-4)' },
+        ]}
+        data={rows.map((r) => ({
+          label: r.period,
+          values: { tangibleAssets: r.tangibleAssets, capex: r.capex === null ? null : Math.abs(r.capex) },
+        }))}
+        formatValue={(v) => formatWon(v)}
+        height={160}
+      />
+    </div>
+  )
+}
+
+function EmployeesSection({ company }: { company: CompanyData }) {
+  const rows = company.employees
+  if (rows.length === 0) return null
+
+  return (
+    <div>
+      <SubsectionHeading icon="👥" title="임직원 현황" />
+      <BarChart
+        stacked
+        series={[
+          { key: 'male', label: '남', color: 'var(--series-1)' },
+          { key: 'female', label: '여', color: 'var(--series-4)' },
+        ]}
+        data={rows.map((r) => ({ label: r.period, values: { male: r.male, female: r.female } }))}
+        formatValue={(v) => formatPeople(v)}
+        height={160}
+      />
+      <div className="mt-3 overflow-x-auto">
+        <table className="tabular w-full min-w-[320px] text-left text-sm">
+          <thead>
+            <tr className="border-b border-[var(--border)] text-xs text-[var(--text-muted)]">
+              <th className="py-1.5 pr-3 font-medium">기간</th>
+              <th className="py-1.5 pr-3 font-medium">남</th>
+              <th className="py-1.5 pr-3 font-medium">여</th>
+              <th className="py-1.5 font-medium">합계</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.period} className="border-b border-[var(--border)] last:border-0">
+                <td className="py-1.5 pr-3 text-[var(--text-secondary)]">{r.period}</td>
+                <td className="py-1.5 pr-3 text-[var(--text-primary)]">{formatCount(r.male)}</td>
+                <td className="py-1.5 pr-3 text-[var(--text-primary)]">{formatCount(r.female)}</td>
+                <td className="py-1.5 text-[var(--text-primary)]">
+                  {formatCount(r.male !== null && r.female !== null ? r.male + r.female : null)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
+function MarketCapSection({ company }: { company: CompanyData }) {
+  const rows = company.marketCapHistory
+  if (rows.length === 0) {
+    return (
+      <div>
+        <SubsectionHeading icon="🏦" title="시가총액 추이" />
+        <DataStatusNote status={company.priceHistoryStatus} />
+        <p className="text-sm text-[var(--text-muted)]">표시할 시가총액 데이터가 없습니다.</p>
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <SubsectionHeading icon="🏦" title="시가총액 추이 (주간)" />
+      <LineChart
+        series={[{ key: 'marketCap', label: '시가총액', color: 'var(--series-1)' }]}
+        data={rows.map((r) => ({ label: r.date.slice(2), values: { marketCap: r.marketCap } }))}
+        formatValue={(v) => formatWon(v)}
+      />
+    </div>
+  )
+}
+
+function ValuationBandSection({
+  company,
+  band,
+  title,
+  unitFormat,
+}: {
+  company: CompanyData
+  band: CompanyData['perBand']
+  title: string
+  unitFormat: (v: number | null) => string
+}) {
+  const priceRows = company.priceHistory
+  if (!band || priceRows.length === 0) return null
+
+  const bandColors = ['var(--series-2)', 'var(--series-3)', 'var(--series-4)', 'var(--status-serious)', 'var(--status-critical)']
+
+  return (
+    <div>
+      <SubsectionHeading icon="📐" title={title} />
+      <p className="mb-2 text-xs text-[var(--text-muted)]">
+        현재 EPS/BPS × 고정 배수로 계산한 단순화된 밴드입니다 — 분기별로 달라지는 실제 EPS/BPS를 반영한 것이 아니라
+        참고용 수평선입니다.
+      </p>
+      <LineChart
+        series={[{ key: 'close', label: '수정주가(주간)', color: 'var(--series-1)' }]}
+        data={priceRows.map((r) => ({ label: r.date.slice(2), values: { close: r.close } }))}
+        formatValue={(v) => unitFormat(v)}
+        referenceLines={band.levels.map((l, i) => ({
+          label: `${l.multiple}x`,
+          value: l.value,
+          color: bandColors[i % bandColors.length],
+        }))}
+      />
+    </div>
+  )
+}
+
+function OrderDisclosuresSection({ company }: { company: CompanyData }) {
+  const rows = company.orderDisclosures
+  return (
+    <div>
+      <SubsectionHeading icon="📰" title="수주공시 (단일판매·공급계약체결)" />
+      {rows.length === 0 ? (
+        <>
+          <DataStatusNote status={company.orderDisclosuresStatus} />
+          <p className="text-sm text-[var(--text-muted)]">최근 공시된 단일판매·공급계약체결 건이 없습니다.</p>
+        </>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="tabular w-full min-w-[420px] text-left text-sm">
+            <thead>
+              <tr className="border-b border-[var(--border)] text-xs text-[var(--text-muted)]">
+                <th className="py-1.5 pr-3 font-medium">공시일</th>
+                <th className="py-1.5 pr-3 font-medium">제목</th>
+                <th className="py-1.5 font-medium">원문</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((r) => (
+                <tr key={`${r.date}-${r.title}`} className="border-b border-[var(--border)] last:border-0">
+                  <td className="py-1.5 pr-3 text-[var(--text-secondary)]">{r.date}</td>
+                  <td className="py-1.5 pr-3 text-[var(--text-primary)]">{r.title}</td>
+                  <td className="py-1.5">
+                    <a href={r.url} target="_blank" rel="noreferrer" className="text-[var(--status-info)] underline">
+                      DART
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function ConsensusSection({ company }: { company: CompanyData }) {
+  const consensus = company.consensus
+  if (!consensus) {
+    return (
+      <div>
+        <SubsectionHeading icon="🔮" title="컨센서스 (매출·영업이익 추정)" />
+        <DataStatusNote status={company.consensusStatus} />
+        <p className="text-sm text-[var(--text-muted)]">표시할 컨센서스 데이터가 없습니다.</p>
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <SubsectionHeading icon="🔮" title="컨센서스 (매출·영업이익 추정, 억원)" />
+      <div className="overflow-x-auto">
+        <table className="tabular w-full min-w-[420px] text-left text-sm">
+          <thead>
+            <tr className="border-b border-[var(--border)] text-xs text-[var(--text-muted)]">
+              <th className="py-1.5 pr-3 font-medium">기간</th>
+              {consensus.periods.map((p) => (
+                <th key={p} className="py-1.5 pr-3 font-medium">
+                  {p}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b border-[var(--border)]">
+              <td className="py-1.5 pr-3 text-[var(--text-secondary)]">매출액</td>
+              {consensus.revenue.map((v, i) => (
+                <td key={i} className="py-1.5 pr-3 text-[var(--text-primary)]">
+                  {formatEokwon(v)}
+                </td>
+              ))}
+            </tr>
+            <tr>
+              <td className="py-1.5 pr-3 text-[var(--text-secondary)]">영업이익</td>
+              {consensus.operatingProfit.map((v, i) => (
+                <td key={i} className="py-1.5 pr-3 text-[var(--text-primary)]">
+                  {formatEokwon(v)}
+                </td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }

@@ -37,9 +37,38 @@ REPORT_CODES = [
 ]
 
 REVENUE_NAMES = {"매출액", "수익(매출액)", "영업수익"}
+COST_OF_SALES_NAMES = {"매출원가"}
+SGA_NAMES = {"판매비와관리비", "판매비와관리비(물류원가등포함)"}
 OPERATING_PROFIT_NAMES = {"영업이익", "영업이익(손실)"}
 NET_INCOME_NAMES = {"당기순이익", "당기순이익(손실)", "분기순이익", "분기순이익(손실)"}
 INVENTORY_NAMES = {"재고자산"}
+TANGIBLE_ASSETS_NAMES = {"유형자산"}
+EQUITY_NAMES = {"자본총계"}
+CFO_NAMES = {"영업활동으로인한현금흐름", "영업활동현금흐름", "영업활동으로인한순현금흐름"}
+CFI_NAMES = {"투자활동으로인한현금흐름", "투자활동현금흐름", "투자활동으로인한순현금흐름"}
+CFF_NAMES = {"재무활동으로인한현금흐름", "재무활동현금흐름", "재무활동으로인한순현금흐름"}
+CAPEX_NAMES = {"유형자산의취득", "유형자산의증가"}
+
+# reprt_code -> report label, defined once; reused by both quarterly and
+# disclosure-window helpers below.
+_ACCOUNT_FIELDS = {
+    "revenue": REVENUE_NAMES,
+    "cost_of_sales": COST_OF_SALES_NAMES,
+    "sga": SGA_NAMES,
+    "operating_profit": OPERATING_PROFIT_NAMES,
+    "net_income": NET_INCOME_NAMES,
+    "inventory": INVENTORY_NAMES,
+    "tangible_assets": TANGIBLE_ASSETS_NAMES,
+    "equity": EQUITY_NAMES,
+    "cfo": CFO_NAMES,
+    "cfi": CFI_NAMES,
+    "cff": CFF_NAMES,
+    "capex": CAPEX_NAMES,
+}
+
+
+def _normalize(s: str) -> str:
+    return (s or "").replace(" ", "").replace("　", "")
 
 
 def _corp_code_cache_path() -> str:
@@ -75,34 +104,30 @@ def load_corp_code_map(api_key: str) -> dict[str, str]:
 
 
 def _pick_amount(rows: list[dict], names: set[str]) -> int | None:
-    for row in rows:
-        if row.get("account_nm") in names and row.get("fs_div") == "CFS":
-            amount = row.get("thstrm_amount")
-            if amount not in (None, ""):
-                try:
-                    return int(amount.replace(",", ""))
-                except ValueError:
-                    return None
-    # fall back to 별도재무제표 (OFS) if no consolidated figure was disclosed
-    for row in rows:
-        if row.get("account_nm") in names and row.get("fs_div") == "OFS":
-            amount = row.get("thstrm_amount")
-            if amount not in (None, ""):
-                try:
-                    return int(amount.replace(",", ""))
-                except ValueError:
-                    return None
+    normalized_names = {_normalize(n) for n in names}
+    for wanted_div in ("CFS", "OFS"):
+        for row in rows:
+            if _normalize(row.get("account_nm", "")) in normalized_names and row.get("fs_div") == wanted_div:
+                amount = row.get("thstrm_amount")
+                if amount not in (None, ""):
+                    try:
+                        return int(amount.replace(",", ""))
+                    except ValueError:
+                        return None
     return None
 
 
 def fetch_financial_statement(
     api_key: str, corp_code: str, bsns_year: str, reprt_code: str
 ) -> dict | None:
-    """One report period's revenue/operating profit/net income/inventory.
+    """One report period's full account set (revenue, cost lines, cash flow, CAPEX, ...).
 
     Returns None when DART has nothing filed for that (corp, year, report)
     combination yet (a very common, expected case — e.g. the current
-    quarter hasn't been filed), rather than raising.
+    quarter hasn't been filed), rather than raising. Any individual account
+    not found (or not applicable — e.g. CAPEX for a company that folds it
+    into a different line) comes back as None in that field rather than
+    failing the whole period.
     """
     url = (
         f"{BASE_URL}/fnlttSinglAcntAll.json?crtfc_key={api_key}"
@@ -115,25 +140,165 @@ def fetch_financial_statement(
     if not rows:
         return None
 
-    return {
-        "revenue": _pick_amount(rows, REVENUE_NAMES),
-        "operating_profit": _pick_amount(rows, OPERATING_PROFIT_NAMES),
-        "net_income": _pick_amount(rows, NET_INCOME_NAMES),
-        "inventory": _pick_amount(rows, INVENTORY_NAMES),
-    }
+    return {field: _pick_amount(rows, names) for field, names in _ACCOUNT_FIELDS.items()}
+
+
+ORDER_DISCLOSURE_KEYWORDS = ("단일판매", "공급계약")
+
+
+def fetch_order_disclosures(
+    api_key: str, corp_code: str, bgn_de: str, end_de: str, max_pages: int = 5
+) -> list[dict]:
+    """수주공시: 단일판매·공급계약체결 disclosures via DART's 공시검색 (list.json).
+
+    list.json is DART's most basic, most stable endpoint (공시검색 — search
+    all disclosures for a company in a date range). It returns disclosure
+    *metadata* only (title, date, receipt number) — not the contract amount,
+    counterparty, or delivery date, which live inside the disclosure
+    document body itself and would need a separate document-parsing step
+    this module doesn't attempt. Each row here links to the DART original
+    so a person can open it directly.
+    """
+    out: list[dict] = []
+    for page_no in range(1, max_pages + 1):
+        url = (
+            f"{BASE_URL}/list.json?crtfc_key={api_key}&corp_code={corp_code}"
+            f"&bgn_de={bgn_de}&end_de={end_de}&page_no={page_no}&page_count=100"
+        )
+        data = get_json(url)
+        if data.get("status") != "000":
+            break
+        rows = data.get("list", [])
+        for row in rows:
+            report_nm = row.get("report_nm", "")
+            if not any(kw in report_nm for kw in ORDER_DISCLOSURE_KEYWORDS):
+                continue
+            rcept_no = row.get("rcept_no", "")
+            out.append(
+                {
+                    "rcept_dt": row.get("rcept_dt"),
+                    "report_nm": report_nm,
+                    "url": f"https://dart.fss.or.kr/dsaf001/main.do?rcpNo={rcept_no}",
+                }
+            )
+        total_page = data.get("total_page", 1)
+        if page_no >= total_page:
+            break
+    return out
+
+
+def _first_int(row: dict, candidate_keys: list[str]) -> int | None:
+    for key in candidate_keys:
+        value = row.get(key)
+        if value in (None, "", "-"):
+            continue
+        try:
+            return int(str(value).replace(",", "").strip())
+        except ValueError:
+            continue
+    return None
+
+
+def fetch_employee_status(
+    api_key: str, corp_code: str, bsns_year: str, reprt_code: str
+) -> dict | None:
+    """직원현황 (성별 인원수) — 정기보고서 주요정보 API `empSttus`.
+
+    LOWER CONFIDENCE than the financial-statement fetchers above: this
+    endpoint's exact field names weren't something this module's author
+    could verify against a live account before writing it, only that
+    `empSttus` is the DART API name for this report section. It tries a
+    few plausible field-name variants DART uses elsewhere (`sm` for a
+    total-count column, or the split 정규직/계약직 columns summed) and
+    returns None per row it can't parse rather than guessing a number.
+    Treat a wrong number here as a bug to report, not a data problem.
+    """
+    url = (
+        f"{BASE_URL}/empSttus.json?crtfc_key={api_key}&corp_code={corp_code}"
+        f"&bsns_year={bsns_year}&reprt_code={reprt_code}"
+    )
+    data = get_json(url)
+    if data.get("status") != "000":
+        return None
+    rows = data.get("list", [])
+    if not rows:
+        return None
+
+    by_gender: dict[str, int] = {}
+    for row in rows:
+        gender = row.get("sexdstn", "").strip()
+        if gender not in ("남", "여"):
+            continue
+        count = _first_int(row, ["sm", "sm_co"])
+        if count is None:
+            rgllbr = _first_int(row, ["rgllbr_co"]) or 0
+            cnttk = _first_int(row, ["cnttk_co"]) or 0
+            count = (rgllbr + cnttk) or None
+        if count is not None:
+            by_gender[gender] = by_gender.get(gender, 0) + count
+
+    if not by_gender:
+        return None
+    return {"male": by_gender.get("남"), "female": by_gender.get("여")}
+
+
+def fetch_shares_outstanding(
+    api_key: str, corp_code: str, bsns_year: str, reprt_code: str
+) -> int | None:
+    """발행주식총수 — 정기보고서 주요정보 API `stockTotqySttus`.
+
+    Same lower-confidence caveat as fetch_employee_status: the field name
+    holding the outstanding-share count is a best guess among DART's
+    naming conventions, not a verified value. Scans for a row whose 구분
+    (`se`) mentions 합계/총수 and pulls the first plausible count field.
+    """
+    url = (
+        f"{BASE_URL}/stockTotqySttus.json?crtfc_key={api_key}&corp_code={corp_code}"
+        f"&bsns_year={bsns_year}&reprt_code={reprt_code}"
+    )
+    data = get_json(url)
+    if data.get("status") != "000":
+        return None
+    rows = data.get("list", [])
+    for row in rows:
+        se = row.get("se", "")
+        if "합계" not in se and "총수" not in se:
+            continue
+        count = _first_int(row, ["istc_totqy", "now_to_isu_stock_totqy", "distb_stock_co"])
+        if count is not None:
+            return count
+    return None
 
 
 def fetch_recent_statements(
-    api_key: str, corp_code: str, years: list[str], max_periods: int
+    api_key: str, corp_code: str, years: list[str], max_periods: int, with_headcount: bool = False
 ) -> list[dict]:
-    """Walk years (newest first) x report codes (newest first), stop at max_periods."""
+    """Walk years (newest first) x report codes (newest first), stop at max_periods.
+
+    with_headcount=True also attaches employee/shares-outstanding fields
+    (best-effort — see fetch_employee_status/fetch_shares_outstanding) for
+    each period that has financial data, at the cost of two extra API
+    calls per period.
+    """
     out: list[dict] = []
     for year in years:
         for reprt_code, label in REPORT_CODES[::-1]:
             result = fetch_financial_statement(api_key, corp_code, year, reprt_code)
             if result is None:
                 continue
-            out.append({"period": f"{year} {label}", "bsns_year": year, **result})
+            entry = {"period": f"{year} {label}", "bsns_year": year, **result}
+            if with_headcount:
+                try:
+                    employees = fetch_employee_status(api_key, corp_code, year, reprt_code)
+                except Exception:  # noqa: BLE001 - best-effort, never sink the period
+                    employees = None
+                try:
+                    shares = fetch_shares_outstanding(api_key, corp_code, year, reprt_code)
+                except Exception:  # noqa: BLE001
+                    shares = None
+                entry["employees"] = employees
+                entry["shares_outstanding"] = shares
+            out.append(entry)
             if len(out) >= max_periods:
                 return out
     return out

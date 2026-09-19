@@ -25,3 +25,23 @@ export function formatShares(value: number): string {
   if (abs >= 1e4) return `${sign}${(abs / 1e4).toFixed(1)}만주`
   return `${sign}${abs.toLocaleString()}주`
 }
+
+export function formatPercent(value: number | null): string {
+  if (value === null) return '—'
+  return `${(value * 100).toFixed(1)}%`
+}
+
+export function formatPeople(value: number | null): string {
+  if (value === null) return '—'
+  return `${value.toLocaleString()}명`
+}
+
+export function formatCount(value: number | null): string {
+  if (value === null) return '—'
+  return value.toLocaleString()
+}
+
+export function formatWonPerShare(value: number | null): string {
+  if (value === null) return '—'
+  return `${Math.round(value).toLocaleString()}원`
+}
