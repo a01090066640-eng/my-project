@@ -2,7 +2,7 @@
   "dashboardMeta": {
     "title": "내 지표 대시보드",
     "subtitle": "매일 자동 수집되는 암호화폐·환율·주가지수·원자재 지표",
-    "generatedAt": "2026-09-19 06:41 UTC",
+    "generatedAt": "2026-09-19 06:46 UTC",
     "dataMode": "live"
   },
   "actionItems": [],
@@ -53,9 +53,7 @@
       "icon": "📊",
       "status": "ok",
       "total": 2,
-      "cadenceBreakdown": "일간 2",
-      "delayedCount": null,
-      "delayedNote": null
+      "cadenceBreakdown": "일간 2"
     },
     {
       "id": "환율",
@@ -63,9 +61,7 @@
       "icon": "📊",
       "status": "ok",
       "total": 1,
-      "cadenceBreakdown": "일간 1",
-      "delayedCount": null,
-      "delayedNote": null
+      "cadenceBreakdown": "일간 1"
     },
     {
       "id": "주가지수",
@@ -73,9 +69,7 @@
       "icon": "📊",
       "status": "ok",
       "total": 3,
-      "cadenceBreakdown": "일간 3",
-      "delayedCount": null,
-      "delayedNote": null
+      "cadenceBreakdown": "일간 3"
     },
     {
       "id": "원자재",
@@ -83,9 +77,7 @@
       "icon": "📊",
       "status": "ok",
       "total": 2,
-      "cadenceBreakdown": "일간 2",
-      "delayedCount": null,
-      "delayedNote": null
+      "cadenceBreakdown": "일간 2"
     }
   ],
   "totals": {
