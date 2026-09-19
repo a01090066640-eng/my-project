@@ -130,18 +130,22 @@ def build_category_statuses(indicators: list[dict]) -> list[dict]:
     statuses = []
     for cat, inds in by_category.items():
         failed = [ind for ind in inds if ind["status"] == "error"]
-        statuses.append(
-            {
-                "id": cat,
-                "name": cat,
-                "icon": "📊",
-                "status": "delayed" if failed else "ok",
-                "total": len(inds),
-                "cadenceBreakdown": f"일간 {len(inds)}",
-                "delayedCount": len(failed) or None,
-                "delayedNote": ", ".join(f["title"] for f in failed) or None,
-            }
-        )
+        status: dict = {
+            "id": cat,
+            "name": cat,
+            "icon": "📊",
+            "status": "delayed" if failed else "ok",
+            "total": len(inds),
+            "cadenceBreakdown": f"일간 {len(inds)}",
+        }
+        # Omit rather than null these when there's nothing delayed: the frontend
+        # type (src/types.ts CategoryStatus) declares them optional (`?: number` /
+        # `?: string`, i.e. `| undefined`), not `| null`, matching how the sample
+        # data in mockData.ts leaves them out entirely for "ok" categories.
+        if failed:
+            status["delayedCount"] = len(failed)
+            status["delayedNote"] = ", ".join(f["title"] for f in failed)
+        statuses.append(status)
     return statuses
 
 

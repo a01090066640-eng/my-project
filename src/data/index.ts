@@ -27,7 +27,14 @@ interface LiveData {
   }
 }
 
-const live = liveDataRaw as LiveData
+// `as unknown as LiveData`, not a direct `as LiveData`: the pipeline's JSON output
+// varies run to run (fields that are `null` some days and a number other days, empty
+// arrays vs populated ones), so TypeScript's structural-overlap check on JSON module
+// types will periodically reject a direct assertion even though the shape is fine at
+// runtime. Going through `unknown` is the standard escape hatch for "trust me" on
+// externally-produced data — see pipeline/build_dashboard_data.py for the real shape
+// contract this file relies on.
+const live = liveDataRaw as unknown as LiveData
 const hasLiveData = live.categoryStatuses.length > 0
 
 export const dashboardMeta: DashboardMeta = hasLiveData ? live.dashboardMeta : mock.dashboardMeta
