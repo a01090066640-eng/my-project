@@ -20,7 +20,11 @@ def fetch(params: dict) -> dict:
     rates = data.get("rates", {})
     if target not in rates:
         raise RuntimeError(f"fx: {target!r} missing from rates for base={base}")
-    as_of = (data.get("time_last_update_utc") or "")[:16] or datetime.now(timezone.utc).strftime(
-        "%Y-%m-%d"
+
+    unix_ts = data.get("time_last_update_unix")
+    as_of = (
+        datetime.fromtimestamp(unix_ts, tz=timezone.utc).strftime("%Y-%m-%d")
+        if unix_ts
+        else datetime.now(timezone.utc).strftime("%Y-%m-%d")
     )
     return {"value": rates[target], "change_pct": None, "as_of": as_of}

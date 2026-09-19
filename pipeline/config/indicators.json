@@ -30,8 +30,8 @@
     "id": "kospi",
     "category": "주가지수",
     "title": "코스피 지수",
-    "source": "stooq",
-    "params": { "symbol": "^kospi" },
+    "source": "yahoo",
+    "params": { "symbol": "^KS11" },
     "unit": "pt",
     "threshold_pct": 1.5
   },
@@ -39,8 +39,8 @@
     "id": "sp500",
     "category": "주가지수",
     "title": "S&P 500",
-    "source": "stooq",
-    "params": { "symbol": "^spx" },
+    "source": "yahoo",
+    "params": { "symbol": "^GSPC" },
     "unit": "pt",
     "threshold_pct": 1.5
   },
@@ -48,8 +48,8 @@
     "id": "nasdaq",
     "category": "주가지수",
     "title": "나스닥 종합지수",
-    "source": "stooq",
-    "params": { "symbol": "^ndq" },
+    "source": "yahoo",
+    "params": { "symbol": "^IXIC" },
     "unit": "pt",
     "threshold_pct": 1.5
   },
@@ -57,8 +57,8 @@
     "id": "wti",
     "category": "원자재",
     "title": "WTI 원유",
-    "source": "stooq",
-    "params": { "symbol": "cl.f" },
+    "source": "yahoo",
+    "params": { "symbol": "CL=F" },
     "unit": "USD/bbl",
     "threshold_pct": 3
   },
@@ -66,8 +66,8 @@
     "id": "gold",
     "category": "원자재",
     "title": "금 (Gold)",
-    "source": "stooq",
-    "params": { "symbol": "gc.f" },
+    "source": "yahoo",
+    "params": { "symbol": "GC=F" },
     "unit": "USD/oz",
     "threshold_pct": 2
   }

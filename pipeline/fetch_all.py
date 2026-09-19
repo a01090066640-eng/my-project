@@ -17,14 +17,14 @@ import time
 from datetime import datetime, timezone
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from sources import coingecko, fx, stooq  # noqa: E402
+from sources import coingecko, fx, yahoo  # noqa: E402
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CONFIG_PATH = os.path.join(BASE_DIR, "config", "indicators.json")
 HISTORY_DIR = os.path.join(BASE_DIR, "data", "history")
 LATEST_PATH = os.path.join(BASE_DIR, "data", "latest.json")
 
-SOURCES = {"coingecko": coingecko.fetch, "fx": fx.fetch, "stooq": stooq.fetch}
+SOURCES = {"coingecko": coingecko.fetch, "fx": fx.fetch, "yahoo": yahoo.fetch}
 
 HISTORY_FIELDS = ["fetched_at", "as_of", "value", "change_pct"]
 
