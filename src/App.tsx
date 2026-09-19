@@ -13,7 +13,7 @@ import {
   notableIndicators,
   recentUpdates,
   totals,
-} from './data/mockData'
+} from './data'
 
 type Theme = 'light' | 'dark'
 
@@ -41,20 +41,23 @@ function App() {
         title={dashboardMeta.title}
         subtitle={dashboardMeta.subtitle}
         generatedAt={dashboardMeta.generatedAt}
+        dataMode={dashboardMeta.dataMode}
         theme={theme}
         onToggleTheme={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
       />
-      <ActionNeeded items={actionItems} />
+      {actionItems.length > 0 && <ActionNeeded items={actionItems} />}
       <RecentUpdates groups={recentUpdates} />
       <NotableIndicators groups={notableIndicators} totals={totals.notableCount} />
-      <InvestmentIdeas ideas={investmentIdeas} />
+      {investmentIdeas.length > 0 && <InvestmentIdeas ideas={investmentIdeas} />}
       <CategoryStatusGrid
         categories={categoryStatuses}
         totalIndicators={totals.totalIndicators}
         delayedIndicators={totals.delayedIndicators}
       />
       <footer className="pb-4 pt-2 text-center text-xs text-[var(--text-muted)]">
-        샘플 데이터로 구성된 대시보드입니다 · 실제 데이터 소스는 이후 연결 예정
+        {dashboardMeta.dataMode === 'live'
+          ? '파이프라인이 매일 자동으로 수집한 실데이터입니다'
+          : '샘플 데이터로 구성된 대시보드입니다 · 파이프라인이 처음 실행되면 실데이터로 교체됩니다'}
       </footer>
     </div>
   )

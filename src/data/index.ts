@@ -1,0 +1,43 @@
+// Bridges the pipeline's generated `liveData.json` (see pipeline/build_dashboard_data.py)
+// with the hand-written sample data in `mockData.ts`. Until the pipeline's GitHub
+// Action has run at least once, `liveData.json` is an empty seed and the dashboard
+// falls back to the sample data so the UI is never blank.
+import liveDataRaw from './liveData.json'
+import * as mock from './mockData'
+import type {
+  ActionItem,
+  CategoryStatus,
+  DashboardMeta,
+  InvestmentIdea,
+  NotableIndicator,
+  UpdateEntry,
+} from '../types'
+
+interface LiveData {
+  dashboardMeta: DashboardMeta
+  actionItems: ActionItem[]
+  recentUpdates: { cadence: string; count: number; items: UpdateEntry[] }[]
+  notableIndicators: { category: string; items: NotableIndicator[] }[]
+  investmentIdeas: InvestmentIdea[]
+  categoryStatuses: CategoryStatus[]
+  totals: {
+    totalIndicators: number
+    delayedIndicators: number
+    notableCount: { critical: number; serious: number; info: number; total: number }
+  }
+}
+
+const live = liveDataRaw as LiveData
+const hasLiveData = live.categoryStatuses.length > 0
+
+export const dashboardMeta: DashboardMeta = hasLiveData ? live.dashboardMeta : mock.dashboardMeta
+export const actionItems: ActionItem[] = hasLiveData ? live.actionItems : mock.actionItems
+export const recentUpdates = hasLiveData ? live.recentUpdates : mock.recentUpdates
+export const notableIndicators = hasLiveData ? live.notableIndicators : mock.notableIndicators
+export const investmentIdeas: InvestmentIdea[] = hasLiveData
+  ? live.investmentIdeas
+  : mock.investmentIdeas
+export const categoryStatuses: CategoryStatus[] = hasLiveData
+  ? live.categoryStatuses
+  : mock.categoryStatuses
+export const totals = hasLiveData ? live.totals : mock.totals

@@ -1,15 +1,17 @@
 import type {
   ActionItem,
   CategoryStatus,
+  DashboardMeta,
   InvestmentIdea,
   NotableIndicator,
   UpdateEntry,
 } from '../types'
 
-export const dashboardMeta = {
-  title: '산업 데이터 관리',
-  subtitle: '지표별 갱신 현황·업데이트 스케줄·갱신 시 주목 포인트',
+export const dashboardMeta: DashboardMeta = {
+  title: '내 지표 대시보드',
+  subtitle: '지표별 갱신 현황·업데이트 스케줄·갱신 시 주목 포인트 (아래는 예시 데이터)',
   generatedAt: '2026-09-19 08:20',
+  dataMode: 'sample',
 }
 
 export const actionItems: ActionItem[] = [

@@ -2,6 +2,13 @@ export type Severity = 'critical' | 'serious' | 'info' | 'good'
 
 export type Cadence = '일간' | '주간' | '월간' | '분기'
 
+export interface DashboardMeta {
+  title: string
+  subtitle: string
+  generatedAt: string
+  dataMode: 'live' | 'sample'
+}
+
 export interface ActionItem {
   id: string
   severity: Severity
