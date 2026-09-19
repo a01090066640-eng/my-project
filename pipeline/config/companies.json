@@ -1,0 +1,37 @@
+[
+  {
+    "id": "samsung-electronics",
+    "name": "삼성전자",
+    "stock_code": "005930",
+    "sector": "반도체/전자",
+    "has_order_backlog": false
+  },
+  {
+    "id": "sk-hynix",
+    "name": "SK하이닉스",
+    "stock_code": "000660",
+    "sector": "반도체",
+    "has_order_backlog": false
+  },
+  {
+    "id": "hd-hyundai-heavy",
+    "name": "HD현대중공업",
+    "stock_code": "329180",
+    "sector": "조선",
+    "has_order_backlog": true
+  },
+  {
+    "id": "hanwha-aerospace",
+    "name": "한화에어로스페이스",
+    "stock_code": "012450",
+    "sector": "방산",
+    "has_order_backlog": true
+  },
+  {
+    "id": "hyundai-eng-const",
+    "name": "현대건설",
+    "stock_code": "000720",
+    "sector": "건설",
+    "has_order_backlog": true
+  }
+]
