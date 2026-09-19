@@ -7,7 +7,7 @@ on:
   workflow_dispatch: {}
   push:
     branches:
-      - claude/laughing-bardeen-39546n
+      - main
 
 permissions:
   contents: write
