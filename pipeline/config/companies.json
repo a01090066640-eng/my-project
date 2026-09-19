@@ -3,6 +3,7 @@
     "id": "samsung-electronics",
     "name": "삼성전자",
     "stock_code": "005930",
+    "market_ticker": "005930.KS",
     "sector": "반도체/전자",
     "has_order_backlog": false
   },
@@ -10,6 +11,7 @@
     "id": "sk-hynix",
     "name": "SK하이닉스",
     "stock_code": "000660",
+    "market_ticker": "000660.KS",
     "sector": "반도체",
     "has_order_backlog": false
   },
@@ -17,6 +19,7 @@
     "id": "hd-hyundai-heavy",
     "name": "HD현대중공업",
     "stock_code": "329180",
+    "market_ticker": "329180.KS",
     "sector": "조선",
     "has_order_backlog": true
   },
@@ -24,6 +27,7 @@
     "id": "hanwha-aerospace",
     "name": "한화에어로스페이스",
     "stock_code": "012450",
+    "market_ticker": "012450.KS",
     "sector": "방산",
     "has_order_backlog": true
   },
@@ -31,6 +35,7 @@
     "id": "hyundai-eng-const",
     "name": "현대건설",
     "stock_code": "000720",
+    "market_ticker": "000720.KS",
     "sector": "건설",
     "has_order_backlog": true
   }

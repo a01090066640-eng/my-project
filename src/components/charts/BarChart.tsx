@@ -17,6 +17,10 @@ interface BarChartProps {
   data: BarChartDatum[]
   formatValue: (value: number) => string
   height?: number
+  /** Stack bar series instead of grouping them side by side (positive values only). */
+  stacked?: boolean
+  /** Extra series drawn as lines on the same axis as the bars — keep units identical, never a second scale. */
+  lines?: BarSeries[]
 }
 
 const MARGIN = { top: 8, right: 8, bottom: 24, left: 8 }
@@ -32,7 +36,7 @@ function niceTicks(min: number, max: number, count = 4): number[] {
   return ticks
 }
 
-export function BarChart({ series, data, formatValue, height = 200 }: BarChartProps) {
+export function BarChart({ series, data, formatValue, height = 200, stacked = false, lines = [] }: BarChartProps) {
   const gradientId = useId()
   const [hover, setHover] = useState<{ x: number; y: number; text: string } | null>(null)
 
@@ -40,7 +44,12 @@ export function BarChart({ series, data, formatValue, height = 200 }: BarChartPr
   const innerHeight = height - MARGIN.top - MARGIN.bottom
   const innerWidth = width - MARGIN.left - MARGIN.right
 
-  const allValues = data.flatMap((d) => series.map((s) => d.values[s.key])).filter((v): v is number => v !== null)
+  const barValues = data.flatMap((d) => series.map((s) => d.values[s.key])).filter((v): v is number => v !== null)
+  const lineValues = data.flatMap((d) => lines.map((s) => d.values[s.key])).filter((v): v is number => v !== null)
+  const stackTotals = stacked
+    ? data.map((d) => series.reduce((sum, s) => sum + (d.values[s.key] ?? 0), 0))
+    : []
+  const allValues = [...barValues, ...lineValues, ...stackTotals]
   const rawMax = allValues.length ? Math.max(...allValues, 0) : 1
   const rawMin = allValues.length ? Math.min(...allValues, 0) : 0
   const max = rawMax === rawMin ? rawMax + 1 : rawMax
@@ -49,9 +58,22 @@ export function BarChart({ series, data, formatValue, height = 200 }: BarChartPr
   const zeroY = yScale(0)
 
   const groupWidth = innerWidth / data.length
-  const barWidth = Math.max(4, (groupWidth - GROUP_GAP) / series.length - BAR_GAP)
+  const barCountPerGroup = stacked ? 1 : series.length
+  const barWidth = Math.max(4, (groupWidth - GROUP_GAP) / barCountPerGroup - BAR_GAP)
 
   const ticks = niceTicks(min, max, 4)
+
+  const linePoints = lines.map((lineSeries) => {
+    const points = data
+      .map((d, i) => {
+        const value = d.values[lineSeries.key]
+        if (value === null || value === undefined) return null
+        const x = i * groupWidth + groupWidth / 2
+        return { x, y: yScale(value), value, label: d.label }
+      })
+      .filter((p): p is { x: number; y: number; value: number; label: string } => p !== null)
+    return { series: lineSeries, points }
+  })
 
   return (
     <div className="w-full overflow-x-auto">
@@ -84,11 +106,34 @@ export function BarChart({ series, data, formatValue, height = 200 }: BarChartPr
 
           {data.map((d, i) => {
             const groupX = i * groupWidth + GROUP_GAP / 2
+            let stackY = zeroY
             return (
               <g key={d.label}>
                 {series.map((s, si) => {
                   const value = d.values[s.key]
                   if (value === null || value === undefined) return null
+                  if (stacked) {
+                    const barHeight = Math.max(0, (yScale(0) - yScale(value)))
+                    const y = stackY - barHeight
+                    stackY = y
+                    return (
+                      <rect
+                        key={s.key}
+                        x={groupX}
+                        y={y}
+                        width={barWidth}
+                        height={Math.max(1, barHeight)}
+                        rx={2}
+                        fill={s.color}
+                        onMouseEnter={() =>
+                          setHover({ x: groupX + barWidth / 2, y, text: `${d.label} · ${s.label}: ${formatValue(value)}` })
+                        }
+                        onMouseLeave={() => setHover(null)}
+                      >
+                        <title>{`${d.label} · ${s.label}: ${formatValue(value)}`}</title>
+                      </rect>
+                    )
+                  }
                   const barX = groupX + si * (barWidth + BAR_GAP)
                   const y = Math.min(yScale(value), zeroY)
                   const barHeight = Math.max(1, Math.abs(yScale(value) - zeroY))
@@ -126,12 +171,38 @@ export function BarChart({ series, data, formatValue, height = 200 }: BarChartPr
               </g>
             )
           })}
+
+          {linePoints.map(({ series: lineSeries, points }) => (
+            <g key={lineSeries.key}>
+              <polyline
+                fill="none"
+                stroke={lineSeries.color}
+                strokeWidth={2}
+                points={points.map((p) => `${p.x},${p.y}`).join(' ')}
+              />
+              {points.map((p) => (
+                <circle
+                  key={p.x}
+                  cx={p.x}
+                  cy={p.y}
+                  r={3}
+                  fill={lineSeries.color}
+                  onMouseEnter={() =>
+                    setHover({ x: p.x, y: p.y, text: `${p.label} · ${lineSeries.label}: ${formatValue(p.value)}` })
+                  }
+                  onMouseLeave={() => setHover(null)}
+                >
+                  <title>{`${p.label} · ${lineSeries.label}: ${formatValue(p.value)}`}</title>
+                </circle>
+              ))}
+            </g>
+          ))}
         </g>
       </svg>
 
-      {series.length > 1 && (
+      {(series.length > 1 || lines.length > 0) && (
         <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
-          {series.map((s) => (
+          {[...series, ...lines].map((s) => (
             <span key={s.key} className="flex items-center gap-1.5 text-xs text-[var(--text-secondary)]">
               <span
                 aria-hidden

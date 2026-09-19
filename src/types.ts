@@ -77,6 +77,8 @@ export type DataStatus = 'ok' | 'no_api_key' | 'error'
 export interface QuarterFinancial {
   period: string
   revenue: number | null
+  costOfSales: number | null
+  sga: number | null
   operatingProfit: number | null
   netIncome: number | null
 }
@@ -84,6 +86,34 @@ export interface QuarterFinancial {
 export interface InventoryPoint {
   period: string
   inventory: number | null
+  inventoryToRevenue: number | null
+}
+
+export interface CashFlowPoint {
+  period: string
+  cfo: number | null
+  cfi: number | null
+  cff: number | null
+  fcf: number | null
+}
+
+export interface CapexPoint {
+  period: string
+  revenue: number | null
+  capex: number | null
+  capexToRevenue: number | null
+}
+
+export interface TangibleAssetPoint {
+  period: string
+  tangibleAssets: number | null
+  capex: number | null
+}
+
+export interface EmployeePoint {
+  period: string
+  male: number | null
+  female: number | null
 }
 
 export interface OrderBacklogPoint {
@@ -91,11 +121,43 @@ export interface OrderBacklogPoint {
   backlogKrw100m: number
 }
 
+export interface OrderDisclosure {
+  date: string
+  title: string
+  url: string
+}
+
 export interface InvestorFlowPoint {
   date: string
   foreignNet: number
   institutionNet: number
   individualNet: number
+}
+
+export interface ConsensusSeries {
+  periods: string[]
+  revenue: (number | null)[]
+  operatingProfit: (number | null)[]
+}
+
+export interface PriceHistoryPoint {
+  date: string
+  close: number
+}
+
+export interface MarketCapPoint {
+  date: string
+  marketCap: number
+}
+
+export interface ValuationBandLevel {
+  multiple: number
+  value: number
+}
+
+export interface ValuationBand {
+  base: number
+  levels: ValuationBandLevel[]
 }
 
 export interface CompanyData {
@@ -107,9 +169,22 @@ export interface CompanyData {
   financialsStatus: DataStatus
   financials: QuarterFinancial[]
   inventory: InventoryPoint[]
+  cashFlow: CashFlowPoint[]
+  capex: CapexPoint[]
+  tangibleAssets: TangibleAssetPoint[]
+  employees: EmployeePoint[]
   orderBacklog: OrderBacklogPoint[]
+  orderDisclosuresStatus: DataStatus
+  orderDisclosures: OrderDisclosure[]
   investorFlowStatus: DataStatus
   investorFlow: InvestorFlowPoint[]
+  consensusStatus: DataStatus
+  consensus: ConsensusSeries | null
+  priceHistoryStatus: DataStatus
+  priceHistory: PriceHistoryPoint[]
+  marketCapHistory: MarketCapPoint[]
+  perBand: ValuationBand | null
+  pbrBand: ValuationBand | null
 }
 
 export interface CompanyDashboardData {

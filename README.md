@@ -20,24 +20,46 @@
 
 ## 관심기업 실적·수급 대시보드
 
-`companies.json`에 등록한 종목별로 실적(매출·영업이익·순이익), 재고자산, 수주잔고,
-수급(외국인·기관·개인 순매매)을 막대그래프+표로 보여줍니다.
+`companies.json`에 등록한 종목별로 실적·비용구성·현금흐름·CAPEX·재고자산·유형자산·
+임직원현황·수주잔고·수주공시·컨센서스·시가총액·PER/PBR 밴드·수급(외국인·기관·개인)을
+막대그래프/선그래프+표로 보여줍니다. (kr.benjamin-stock.com의 화면 구성을 참고해서
+만들었습니다.)
 
-- **실적·재고자산**: DART(전자공시) OpenAPI에서 자동 수집합니다. 무료지만 API 키
-  발급이 필요합니다 — [dart.fss.or.kr](https://opendart.fss.or.kr)에서 발급받아
-  `DART_API_KEY`라는 이름으로 저장소 **Settings → Secrets and variables →
-  Actions**에 등록하세요. 키가 없으면 해당 종목은 샘플 데이터로 표시됩니다.
-- **수급(외국인/기관/개인)**: 네이버 금융 종목별 매매동향 페이지에서 자동
-  수집합니다 (키 불필요). 개인 순매매는 거래량에서 외국인·기관 순매매를 뺀
-  값입니다.
-- **수주잔고**: DART에 업종 전체를 아우르는 구조화된 API가 없어(조선·건설·방산
+### 신뢰도가 높은 소스 (검증된 표준 API 패턴)
+
+- **실적·매출원가·판관비·현금흐름·CAPEX·재고자산·유형자산**: DART(전자공시)
+  OpenAPI `fnlttSinglAcntAll` (연결재무제표). 무료지만 API 키 발급이 필요합니다 —
+  [dart.fss.or.kr](https://opendart.fss.or.kr)에서 발급받아 `DART_API_KEY`라는
+  이름으로 저장소 **Settings → Secrets and variables → Actions**에 등록하세요.
+  키가 없으면 샘플 데이터로 표시됩니다.
+- **수주공시**: DART 공시검색(`list.json`)에서 "단일판매·공급계약체결" 공시를
+  찾아 날짜·제목·원문 링크를 자동으로 모읍니다. 계약금액·고객사·납기 같은 세부
+  항목은 공시 본문을 파싱해야 해서(아직 미구현) 목록만 제공합니다.
+- **수급(외국인/기관/개인)**: 네이버 금융 종목별 매매동향 페이지 스크레이핑
+  (키 불필요). 개인 순매매는 거래량에서 외국인·기관 순매매를 뺀 값입니다.
+- **시가총액·PER/PBR 밴드**: Yahoo Finance 차트 API로 받은 10년 주간 종가에
+  현재 EPS/BPS × 고정 배수(7x~20x, 1x~2x)를 곱해 만든 **단순화된** 밴드입니다 —
+  실제로는 분기마다 EPS/BPS가 바뀌지만 여기서는 최신 값 하나로 고정합니다.
+
+### 신뢰도가 낮은 소스 (베스트 에포트 — 틀리면 화면엔 안 나오고 조용히 N/A 처리됨)
+
+- **임직원 현황(성별)·발행주식총수**: DART `empSttus`/`stockTotqySttus` API —
+  정확한 필드명을 실제 계정으로 검증하지 못한 채 작성했습니다. 값이 이상하면
+  `pipeline/sources/dart.py`의 해당 함수를 실제 응답으로 다시 맞춰야 합니다.
+- **컨센서스(매출·영업이익 추정치)**: 네이버 금융이 쓰는 WiseReport 위젯
+  (`navercomp.wisereport.co.kr/.../cF1001.aspx`)을 스크레이핑합니다. 이 역시
+  실제 페이지 구조를 보고 검증하지 못했고, 표 구조가 다르면 조용히 빈 값으로
+  처리됩니다.
+
+- **수주잔고 합계**: DART에 업종 전체를 아우르는 구조화된 API가 없어(조선·건설·방산
   등 일부 업종만, 그것도 사업보고서 텍스트로만 공시) 자동 수집하지 않습니다.
   `pipeline/config/order_backlog.json`에 분기마다 직접 값을 채워 넣으면
   대시보드에 반영됩니다. `companies.json`에서 `has_order_backlog: true`로
-  표시된 종목만 이 섹션이 노출됩니다.
+  표시된 종목만 이 섹션이 노출됩니다. (자동 수집되는 "수주공시" 목록과는 별개입니다.)
 
 종목을 추가/변경하려면 `pipeline/config/companies.json`에 `{id, name,
-stock_code, sector, has_order_backlog}`를 추가하세요.
+stock_code, market_ticker, sector, has_order_backlog}`를 추가하세요
+(`market_ticker`는 Yahoo Finance용 KRX 티커, 코스피는 `.KS`/코스닥은 `.KQ`).
 
 ```bash
 export DART_API_KEY=발급받은키
