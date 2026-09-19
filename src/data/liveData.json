@@ -1,0 +1,18 @@
+{
+  "dashboardMeta": {
+    "title": "",
+    "subtitle": "",
+    "generatedAt": "",
+    "dataMode": "live"
+  },
+  "actionItems": [],
+  "recentUpdates": [],
+  "notableIndicators": [],
+  "investmentIdeas": [],
+  "categoryStatuses": [],
+  "totals": {
+    "totalIndicators": 0,
+    "delayedIndicators": 0,
+    "notableCount": { "critical": 0, "serious": 0, "info": 0, "total": 0 }
+  }
+}

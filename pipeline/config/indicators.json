@@ -1,0 +1,74 @@
+[
+  {
+    "id": "btc",
+    "category": "암호화폐",
+    "title": "비트코인 (BTC/USD)",
+    "source": "coingecko",
+    "params": { "coin_id": "bitcoin" },
+    "unit": "USD",
+    "threshold_pct": 5
+  },
+  {
+    "id": "eth",
+    "category": "암호화폐",
+    "title": "이더리움 (ETH/USD)",
+    "source": "coingecko",
+    "params": { "coin_id": "ethereum" },
+    "unit": "USD",
+    "threshold_pct": 6
+  },
+  {
+    "id": "usdkrw",
+    "category": "환율",
+    "title": "달러/원 환율",
+    "source": "fx",
+    "params": { "base": "USD", "target": "KRW" },
+    "unit": "KRW",
+    "threshold_pct": 1
+  },
+  {
+    "id": "kospi",
+    "category": "주가지수",
+    "title": "코스피 지수",
+    "source": "stooq",
+    "params": { "symbol": "^kospi" },
+    "unit": "pt",
+    "threshold_pct": 1.5
+  },
+  {
+    "id": "sp500",
+    "category": "주가지수",
+    "title": "S&P 500",
+    "source": "stooq",
+    "params": { "symbol": "^spx" },
+    "unit": "pt",
+    "threshold_pct": 1.5
+  },
+  {
+    "id": "nasdaq",
+    "category": "주가지수",
+    "title": "나스닥 종합지수",
+    "source": "stooq",
+    "params": { "symbol": "^ndq" },
+    "unit": "pt",
+    "threshold_pct": 1.5
+  },
+  {
+    "id": "wti",
+    "category": "원자재",
+    "title": "WTI 원유",
+    "source": "stooq",
+    "params": { "symbol": "cl.f" },
+    "unit": "USD/bbl",
+    "threshold_pct": 3
+  },
+  {
+    "id": "gold",
+    "category": "원자재",
+    "title": "금 (Gold)",
+    "source": "stooq",
+    "params": { "symbol": "gc.f" },
+    "unit": "USD/oz",
+    "threshold_pct": 2
+  }
+]
