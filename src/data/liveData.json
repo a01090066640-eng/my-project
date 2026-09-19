@@ -2,22 +2,15 @@
   "dashboardMeta": {
     "title": "내 지표 대시보드",
     "subtitle": "매일 자동 수집되는 암호화폐·환율·주가지수·원자재 지표",
-    "generatedAt": "2026-09-19 06:52 UTC",
+    "generatedAt": "2026-09-19 22:34 UTC",
     "dataMode": "live"
   },
   "actionItems": [],
   "recentUpdates": [
     {
       "cadence": "일간",
-      "count": 2,
+      "count": 1,
       "items": [
-        {
-          "id": "update-btc",
-          "category": "암호화폐",
-          "title": "비트코인 (BTC/USD)",
-          "latestLabel": "2026-09-19",
-          "updatedLabel": "2026-09-19"
-        },
         {
           "id": "update-eth",
           "category": "암호화폐",
