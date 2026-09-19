@@ -71,3 +71,48 @@ export interface CategoryStatus {
   delayedCount?: number
   delayedNote?: string
 }
+
+export type DataStatus = 'ok' | 'no_api_key' | 'error'
+
+export interface QuarterFinancial {
+  period: string
+  revenue: number | null
+  operatingProfit: number | null
+  netIncome: number | null
+}
+
+export interface InventoryPoint {
+  period: string
+  inventory: number | null
+}
+
+export interface OrderBacklogPoint {
+  period: string
+  backlogKrw100m: number
+}
+
+export interface InvestorFlowPoint {
+  date: string
+  foreignNet: number
+  institutionNet: number
+  individualNet: number
+}
+
+export interface CompanyData {
+  id: string
+  name: string
+  stockCode: string
+  sector: string
+  hasOrderBacklog: boolean
+  financialsStatus: DataStatus
+  financials: QuarterFinancial[]
+  inventory: InventoryPoint[]
+  orderBacklog: OrderBacklogPoint[]
+  investorFlowStatus: DataStatus
+  investorFlow: InvestorFlowPoint[]
+}
+
+export interface CompanyDashboardData {
+  generatedAt: string | null
+  companies: CompanyData[]
+}

@@ -1,0 +1,7 @@
+{
+  "_readme": "DART OpenAPI has no uniform, structured endpoint for order backlog (수주잔고) — it's only disclosed by some sectors (조선/건설/방산 등), and only as free text inside the 사업보고서/분기보고서 '수주현황' section, not a machine-readable field. So this file is NOT auto-fetched: it starts empty on purpose, and you fill it in by hand once a quarter by reading each company's report on DART (dart.fss.or.kr) and copying the disclosed total backlog. A company id from companies.json (has_order_backlog: true) with no entry here — or an empty array — just shows 'N/A' on the dashboard; nothing is guessed or estimated.",
+  "_entry_shape": "각 회사 id에 대해 [{ \"period\": \"2025 반기 누적\", \"backlog_krw_100m\": <공시된 수주잔고, 억원 단위> }, ...] 형태의 배열을 채우세요.",
+  "hd-hyundai-heavy": [],
+  "hanwha-aerospace": [],
+  "hyundai-eng-const": []
+}

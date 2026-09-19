@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ActionNeeded } from './components/ActionNeeded'
 import { CategoryStatusGrid } from './components/CategoryStatusGrid'
+import { CompanyDashboard } from './components/CompanyDashboard'
 import { Header } from './components/Header'
 import { InvestmentIdeas } from './components/InvestmentIdeas'
 import { NotableIndicators } from './components/NotableIndicators'
@@ -14,6 +15,7 @@ import {
   recentUpdates,
   totals,
 } from './data'
+import { companies as companyList, companyDashboardGeneratedAt, isCompanyDataLive } from './data/companyIndex'
 
 type Theme = 'light' | 'dark'
 
@@ -46,6 +48,13 @@ function App() {
         onToggleTheme={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
       />
       {actionItems.length > 0 && <ActionNeeded items={actionItems} />}
+      {companyList.length > 0 && (
+        <CompanyDashboard
+          companies={companyList}
+          generatedAt={companyDashboardGeneratedAt}
+          isLive={isCompanyDataLive}
+        />
+      )}
       <RecentUpdates groups={recentUpdates} />
       <NotableIndicators groups={notableIndicators} totals={totals.notableCount} />
       {investmentIdeas.length > 0 && <InvestmentIdeas ideas={investmentIdeas} />}

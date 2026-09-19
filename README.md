@@ -18,6 +18,33 @@
 라이트/다크 테마를 지원하며 선택한 테마는 브라우저에 저장됩니다. 헤더의 배지로 지금 보고 있는
 데이터가 실시간(파이프라인 결과)인지 샘플인지 표시됩니다.
 
+## 관심기업 실적·수급 대시보드
+
+`companies.json`에 등록한 종목별로 실적(매출·영업이익·순이익), 재고자산, 수주잔고,
+수급(외국인·기관·개인 순매매)을 막대그래프+표로 보여줍니다.
+
+- **실적·재고자산**: DART(전자공시) OpenAPI에서 자동 수집합니다. 무료지만 API 키
+  발급이 필요합니다 — [dart.fss.or.kr](https://opendart.fss.or.kr)에서 발급받아
+  `DART_API_KEY`라는 이름으로 저장소 **Settings → Secrets and variables →
+  Actions**에 등록하세요. 키가 없으면 해당 종목은 샘플 데이터로 표시됩니다.
+- **수급(외국인/기관/개인)**: 네이버 금융 종목별 매매동향 페이지에서 자동
+  수집합니다 (키 불필요). 개인 순매매는 거래량에서 외국인·기관 순매매를 뺀
+  값입니다.
+- **수주잔고**: DART에 업종 전체를 아우르는 구조화된 API가 없어(조선·건설·방산
+  등 일부 업종만, 그것도 사업보고서 텍스트로만 공시) 자동 수집하지 않습니다.
+  `pipeline/config/order_backlog.json`에 분기마다 직접 값을 채워 넣으면
+  대시보드에 반영됩니다. `companies.json`에서 `has_order_backlog: true`로
+  표시된 종목만 이 섹션이 노출됩니다.
+
+종목을 추가/변경하려면 `pipeline/config/companies.json`에 `{id, name,
+stock_code, sector, has_order_backlog}`를 추가하세요.
+
+```bash
+export DART_API_KEY=발급받은키
+python3 pipeline/fetch_company_data.py
+python3 pipeline/build_company_dashboard_data.py
+```
+
 ## 데이터 파이프라인
 
 ```

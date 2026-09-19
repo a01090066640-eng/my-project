@@ -27,3 +27,5 @@ dist-ssr
 __pycache__/
 *.pyc
 pipeline/data/latest.json
+pipeline/data/company_raw.json
+pipeline/data/corp_code_cache.xml
