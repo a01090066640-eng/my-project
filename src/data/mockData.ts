@@ -1,0 +1,359 @@
+import type {
+  ActionItem,
+  CategoryStatus,
+  InvestmentIdea,
+  NotableIndicator,
+  UpdateEntry,
+} from '../types'
+
+export const dashboardMeta = {
+  title: '산업 데이터 관리',
+  subtitle: '지표별 갱신 현황·업데이트 스케줄·갱신 시 주목 포인트',
+  generatedAt: '2026-09-19 08:20',
+}
+
+export const actionItems: ActionItem[] = [
+  {
+    id: 'kmi-weekly',
+    severity: 'serious',
+    category: '조선',
+    title: 'KMI 주간 (신조·중고 선가) — 데이터 지연',
+    latestDate: '2026-09-04',
+    staleness: '15일 전',
+    sourceSchedule: 'KMI 매주 화요일',
+    jobName: 'industry.weekly',
+    jobStatus: '예정대로 돌고 있습니다',
+    note: '원본 사이트나 수집 스크립트를 확인하세요.',
+    command: 'cd "../industry_Data" && ./run_industry_weekly.sh',
+  },
+]
+
+export const recentUpdates: { cadence: string; count: number; items: UpdateEntry[] }[] = [
+  {
+    cadence: '주간',
+    count: 12,
+    items: [
+      {
+        id: 'u1',
+        category: 'AI/반도체',
+        title: '모델 단가·승률 (스냅샷)',
+        latestLabel: '(스냅샷) 2026-09-19',
+        updatedLabel: '2026-09-19',
+      },
+      {
+        id: 'u2',
+        category: '매크로',
+        title: '미국 30Y 모기지금리',
+        latestLabel: '2026-09-17',
+        updatedLabel: '2026-09-18',
+      },
+      {
+        id: 'u3',
+        category: '매크로',
+        title: '미국 실업수당청구 (주간)',
+        latestLabel: '2026-09-12',
+        updatedLabel: '2026-09-18',
+      },
+      {
+        id: 'u4',
+        category: '소비재',
+        title: '아마존 Beauty Top 100 국가별 한국 브랜드 제품수',
+        latestLabel: '2026-09-18',
+        updatedLabel: '2026-09-18',
+      },
+      {
+        id: 'u5',
+        category: '매크로',
+        title: 'Fed 대차대조표 (H.4.1 주간)',
+        latestLabel: '2026-09-16',
+        updatedLabel: '2026-09-18',
+      },
+      {
+        id: 'u6',
+        category: '정유/화학',
+        title: '미국 주간 석유 수급·재고 (EIA)',
+        latestLabel: '2026-09-11',
+        updatedLabel: '2026-09-17',
+      },
+      {
+        id: 'u7',
+        category: '태양광',
+        title: '태양광 현물가 (InfoLink)',
+        latestLabel: '2026-09-16',
+        updatedLabel: '2026-09-17',
+      },
+      {
+        id: 'u8',
+        category: '2차전지',
+        title: 'ESS 현물가 (InfoLink)',
+        latestLabel: '2026-09-16',
+        updatedLabel: '2026-09-17',
+      },
+    ],
+  },
+  {
+    cadence: '월간',
+    count: 36,
+    items: [
+      {
+        id: 'm1',
+        category: '매크로',
+        title: '국내 생산자물가 (PPI)',
+        latestLabel: '2026-08-01',
+        updatedLabel: '2026-09-19',
+      },
+      {
+        id: 'm2',
+        category: 'AI/반도체',
+        title: 'DRAM 가격 시계열 (현물·고정)',
+        latestLabel: '2026-09',
+        updatedLabel: '2026-09-18',
+      },
+      {
+        id: 'm3',
+        category: '2차전지',
+        title: '대륙별 전기차 판매',
+        latestLabel: '2026-08',
+        updatedLabel: '2026-09-18',
+      },
+      {
+        id: 'm4',
+        category: '매크로',
+        title: '미국 소매판매',
+        latestLabel: '2026-08-01',
+        updatedLabel: '2026-09-16',
+      },
+      {
+        id: 'm5',
+        category: '수출입',
+        title: '전체 수출입 (관세청)',
+        latestLabel: '202608',
+        updatedLabel: '2026-09-12',
+      },
+      {
+        id: 'm6',
+        category: '매크로',
+        title: '미국 CPI',
+        latestLabel: '2026-08-01',
+        updatedLabel: '2026-09-12',
+      },
+    ],
+  },
+]
+
+export const notableIndicators: { category: string; items: NotableIndicator[] }[] = [
+  {
+    category: '원자재',
+    items: [
+      {
+        id: 'n1',
+        category: '원자재',
+        severity: 'critical',
+        title: '아스팔트 1개월 급등',
+        value: '5,291.00 CNY/t (+20.4%)',
+        asOf: '2026-09-18',
+        updatedAsOf: '2026-09-19',
+        detail: '2026-09-18 기준',
+      },
+      {
+        id: 'n2',
+        category: '원자재',
+        severity: 'critical',
+        title: '원유(상해INE) 1개월 급등',
+        value: '728.00 CNY/bbl (+24.3%)',
+        asOf: '2026-09-18',
+        updatedAsOf: '2026-09-19',
+        detail: '2026-09-18 기준',
+      },
+      {
+        id: 'n3',
+        category: '원자재',
+        severity: 'serious',
+        title: 'WTI 1개월 급등',
+        value: '95.47 $/bbl (+13.1%)',
+        asOf: '2026-09-18',
+        updatedAsOf: '2026-09-19',
+        detail: '2026-09-18 기준',
+      },
+      {
+        id: 'n4',
+        category: '원자재',
+        severity: 'serious',
+        title: '탄산리튬 1개월 급락',
+        value: '127,160.00 CNY/t (-15.6%)',
+        asOf: '2026-09-18',
+        updatedAsOf: '2026-09-19',
+        detail: '2026-09-18 기준',
+      },
+    ],
+  },
+  {
+    category: '인바운드',
+    items: [
+      {
+        id: 'n5',
+        category: '인바운드',
+        severity: 'critical',
+        title: '방일 중국인 YoY 급감',
+        value: '-59.0%',
+        asOf: '2026-08',
+        updatedAsOf: '2026-09-17',
+        detail: '2026-08 41.8만명 · 일본이 줄면 한국 인바운드에 반사수혜 가능',
+      },
+      {
+        id: 'n6',
+        category: '인바운드',
+        severity: 'serious',
+        title: '중국 노선 탑승률 상승 (증편 여력)',
+        value: '여객 +22.9% vs 편수 +8.2%',
+        asOf: '2026-07',
+        updatedAsOf: '2026-08-25',
+        detail: '2026-07 · 격차 +14.7%p — 수요가 공급을 앞선다',
+      },
+      {
+        id: 'n7',
+        category: '인바운드',
+        severity: 'info',
+        title: '주목 국가 · 미얀마',
+        value: '최근3M YoY +84%',
+        asOf: '2026-07',
+        updatedAsOf: '2026-08-31',
+        detail: '202607 기준 · 월평균 1.4만명',
+      },
+    ],
+  },
+  {
+    category: '매크로',
+    items: [
+      {
+        id: 'n8',
+        category: '매크로',
+        severity: 'critical',
+        title: '근원 CPI YoY 전월 대비 급등',
+        value: '3.4% (+0.8%p)',
+        asOf: '2026-08',
+        updatedAsOf: '2026-09-19',
+        detail: '2026-08 · 식료품·에너지 제외 · 기조적 물가 압력',
+      },
+      {
+        id: 'n9',
+        category: '매크로',
+        severity: 'critical',
+        title: '수입물가 YoY (원화) 전월 대비 급락',
+        value: '15.6% (-3.2%p)',
+        asOf: '2026-08',
+        updatedAsOf: '2026-09-19',
+        detail: '2026-08 · 전가 사슬 맨 앞 · 환율+원자재 동시 반영',
+      },
+      {
+        id: 'n10',
+        category: '매크로',
+        severity: 'serious',
+        title: 'CPI YoY 전월 대비 급등',
+        value: '3.1% (+0.3%p)',
+        asOf: '2026-08',
+        updatedAsOf: '2026-09-19',
+        detail: '2026-08 · 한은 물가안정목표 2% · 기준금리',
+      },
+    ],
+  },
+]
+
+export const investmentIdeas: InvestmentIdea[] = [
+  {
+    id: 'i1',
+    tier: 'good',
+    ticker: 'KRX:000660',
+    name: 'SK하이닉스',
+    market: '국내',
+    sector: '반도체IDM',
+    thesis: 'DRAM·NAND 수출 급증과 CAPEX 확대의 직접 접점',
+    reasoning:
+      'DRAM 수출 3M YoY +452%, DDR4·DDR5 현물 프리미엄 확대, 빅테크 CAPEX·RPO 증가가 동시에 확인되어 메모리 수요·가격이 함께 강한 구간이다. 수출 급증이 가격 효과인지 물량 효과인지, 프리미엄 확대가 이어지는지 확인할 것.',
+    evidence: [
+      { category: 'AI/반도체', label: 'DDR4 8Gb 프리미엄 급변', value: '79.0% → 88.6%', asOf: '2026-09' },
+      { category: 'AI/반도체', label: 'DDR5 16Gb 프리미엄 급변', value: '72.1% → 77.5%', asOf: '2026-09' },
+      { category: 'AI/반도체', label: '빅테크 4사 CAPEX 분기 증가', value: '$165B (+27.2% QoQ)', asOf: '26.2Q' },
+      { category: '수출입', label: '주목 품목 · DRAM - 전체 (수출)', value: '최근3M YoY +452% · 모멘텀 +109%p', asOf: '2026-08' },
+    ],
+  },
+  {
+    id: 'i2',
+    tier: 'good',
+    ticker: 'KRX:005930',
+    name: '삼성전자',
+    market: '국내',
+    sector: '반도체IDM',
+    thesis: 'DRAM·SSD·NAND 수출 급증의 최대 수출 주체 후보',
+    reasoning:
+      'DRAM·SSD·NAND 수출이 모두 3M YoY 300%대 이상으로 급증했고 DDR4·DDR5 프리미엄도 확대되어 메모리 사업 전반에 걸린다. 다만 위 지표로는 개별 기업 기여도를 구분할 수 없으므로 품목별 수출 비중과 가격 반영 시점을 확인할 것.',
+    evidence: [
+      { category: 'AI/반도체', label: 'DDR4 8Gb 프리미엄 급변', value: '79.0% → 88.6%', asOf: '2026-09' },
+      { category: '수출입', label: '주목 품목 · SSD - 전체 (수출)', value: '최근3M YoY +445% · 모멘텀 +21%p', asOf: '2026-08' },
+    ],
+  },
+  {
+    id: 'i3',
+    tier: 'watch',
+    ticker: 'KRX:010950',
+    name: 'S-Oil',
+    market: '국내',
+    sector: '화학/정유',
+    thesis: '유가·아스팔트 급등 속 정제마진 확인 필요',
+    reasoning:
+      '원유(INE)·WTI가 1개월 +24.3%, +13.1% 급등했고 아스팔트도 +20.4% 올라 제품가와 원가가 함께 움직이는 구간이다. 원유 상승분이 제품가에 얼마나 전가되는지, 즉 스프레드 방향을 확인할 것.',
+    evidence: [
+      { category: '원자재', label: '아스팔트 1개월 급등', value: '5,291.00 CNY/t (+20.4%)', asOf: '2026-09-18' },
+      { category: '원자재', label: 'WTI 1개월 급등', value: '95.47 $/bbl (+13.1%)', asOf: '2026-09-18' },
+    ],
+  },
+  {
+    id: 'i4',
+    tier: 'watch',
+    ticker: 'KRX:003490',
+    name: '대한항공',
+    market: '국내',
+    sector: '해운/운송',
+    thesis: '유가 급등은 비용 부담, 중국 노선 수요는 상쇄 요인',
+    reasoning:
+      'WTI·상해 원유가 1개월 두 자릿수 급등해 연료비 부담이 커질 수 있는 반면, 중국 노선 여객이 편수보다 빠르게 늘어 수요는 견조하다. 유가 상승분의 운임·유류할증 전가 여부와 중국 노선 증편 계획을 확인할 것.',
+    evidence: [
+      { category: '원자재', label: '원유(상해INE) 1개월 급등', value: '728.00 CNY/bbl (+24.3%)', asOf: '2026-09-18' },
+      { category: '인바운드', label: '중국 노선 탑승률 상승 (증편 여력)', value: '여객 +22.9% vs 편수 +8.2%', asOf: '2026-07' },
+    ],
+  },
+]
+
+export const categoryStatuses: CategoryStatus[] = [
+  { id: 'macro', name: '매크로', icon: '🌐', status: 'ok', total: 28, cadenceBreakdown: '일간 3 · 주간 4 · 월간 20 · 분기 1' },
+  { id: 'ai-semi', name: 'AI/반도체', icon: '🤖', status: 'ok', total: 14, cadenceBreakdown: '일간 4 · 주간 2 · 월간 5 · 분기 3' },
+  { id: 'market', name: '시장현황', icon: '📈', status: 'ok', total: 3, cadenceBreakdown: '일간 3' },
+  { id: 'commodity', name: '원자재', icon: '🛢', status: 'ok', total: 3, cadenceBreakdown: '일간 2 · 월간 1' },
+  { id: 'export', name: '수출입', icon: '📦', status: 'ok', total: 5, cadenceBreakdown: '월간 5' },
+  { id: 'inbound', name: '인바운드', icon: '✈️', status: 'ok', total: 5, cadenceBreakdown: '월간 4 · 분기 1' },
+  { id: 'medical', name: '의료관광', icon: '🏥', status: 'ok', total: 1, cadenceBreakdown: '월간 1' },
+  { id: 'machine', name: '기계', icon: '⚙️', status: 'ok', total: 3, cadenceBreakdown: '월간 3' },
+  { id: 'construction', name: '건설', icon: '🏗', status: 'ok', total: 10, cadenceBreakdown: '월간 9' },
+  { id: 'solar', name: '태양광', icon: '☀️', status: 'ok', total: 2, cadenceBreakdown: '주간 2' },
+  { id: 'battery', name: '2차전지', icon: '🔋', status: 'ok', total: 4, cadenceBreakdown: '일간 1 · 주간 1 · 월간 2' },
+  { id: 'auto', name: '자동차', icon: '🚗', status: 'ok', total: 2, cadenceBreakdown: '월간 2' },
+  { id: 'lng', name: 'LNG', icon: '⛽', status: 'ok', total: 2, cadenceBreakdown: '월간 2' },
+  { id: 'consumer', name: '소비재', icon: '🛍', status: 'ok', total: 10, cadenceBreakdown: '일간 1 · 주간 2 · 월간 4' },
+  { id: 'petro', name: '정유/화학', icon: '🛢', status: 'ok', total: 5, cadenceBreakdown: '일간 2 · 주간 1 · 월간 2' },
+  {
+    id: 'shipbuilding',
+    name: '조선',
+    icon: '🚢',
+    status: 'delayed',
+    total: 2,
+    cadenceBreakdown: '일간 1 · 주간 1',
+    delayedCount: 1,
+    delayedNote: 'KMI 주간 (신조·중고 선가) — 2026-09-04',
+  },
+]
+
+export const totals = {
+  totalIndicators: 104,
+  delayedIndicators: 1,
+  notableCount: { critical: 5, serious: 15, info: 7, total: 27 },
+}
