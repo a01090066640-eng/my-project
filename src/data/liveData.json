@@ -1,18 +1,158 @@
 {
   "dashboardMeta": {
-    "title": "",
-    "subtitle": "",
-    "generatedAt": "",
+    "title": "내 지표 대시보드",
+    "subtitle": "매일 자동 수집되는 암호화폐·환율·주가지수·원자재 지표",
+    "generatedAt": "2026-09-19 05:51 UTC",
     "dataMode": "live"
   },
-  "actionItems": [],
-  "recentUpdates": [],
+  "actionItems": [
+    {
+      "id": "error-kospi",
+      "severity": "serious",
+      "category": "주가지수",
+      "title": "코스피 지수 — 데이터 수집 실패",
+      "latestDate": "기록 없음",
+      "staleness": "한 번도 성공한 적 없음",
+      "sourceSchedule": "소스: kospi",
+      "jobName": "pipeline.fetch_all",
+      "jobStatus": "다른 지표는 정상적으로 갱신되었습니다",
+      "note": "stooq: no usable data for symbol '^kospi' (got: '<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"robots\" content=\"no')",
+      "command": "python3 pipeline/fetch_all.py"
+    },
+    {
+      "id": "error-sp500",
+      "severity": "serious",
+      "category": "주가지수",
+      "title": "S&P 500 — 데이터 수집 실패",
+      "latestDate": "기록 없음",
+      "staleness": "한 번도 성공한 적 없음",
+      "sourceSchedule": "소스: sp500",
+      "jobName": "pipeline.fetch_all",
+      "jobStatus": "다른 지표는 정상적으로 갱신되었습니다",
+      "note": "stooq: no usable data for symbol '^spx' (got: '<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"robots\" content=\"no')",
+      "command": "python3 pipeline/fetch_all.py"
+    },
+    {
+      "id": "error-nasdaq",
+      "severity": "serious",
+      "category": "주가지수",
+      "title": "나스닥 종합지수 — 데이터 수집 실패",
+      "latestDate": "기록 없음",
+      "staleness": "한 번도 성공한 적 없음",
+      "sourceSchedule": "소스: nasdaq",
+      "jobName": "pipeline.fetch_all",
+      "jobStatus": "다른 지표는 정상적으로 갱신되었습니다",
+      "note": "stooq: no usable data for symbol '^ndq' (got: '<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"robots\" content=\"no')",
+      "command": "python3 pipeline/fetch_all.py"
+    },
+    {
+      "id": "error-wti",
+      "severity": "serious",
+      "category": "원자재",
+      "title": "WTI 원유 — 데이터 수집 실패",
+      "latestDate": "기록 없음",
+      "staleness": "한 번도 성공한 적 없음",
+      "sourceSchedule": "소스: wti",
+      "jobName": "pipeline.fetch_all",
+      "jobStatus": "다른 지표는 정상적으로 갱신되었습니다",
+      "note": "stooq: no usable data for symbol 'cl.f' (got: '<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"robots\" content=\"no')",
+      "command": "python3 pipeline/fetch_all.py"
+    },
+    {
+      "id": "error-gold",
+      "severity": "serious",
+      "category": "원자재",
+      "title": "금 (Gold) — 데이터 수집 실패",
+      "latestDate": "기록 없음",
+      "staleness": "한 번도 성공한 적 없음",
+      "sourceSchedule": "소스: gold",
+      "jobName": "pipeline.fetch_all",
+      "jobStatus": "다른 지표는 정상적으로 갱신되었습니다",
+      "note": "stooq: no usable data for symbol 'gc.f' (got: '<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"robots\" content=\"no')",
+      "command": "python3 pipeline/fetch_all.py"
+    }
+  ],
+  "recentUpdates": [
+    {
+      "cadence": "일간",
+      "count": 3,
+      "items": [
+        {
+          "id": "update-btc",
+          "category": "암호화폐",
+          "title": "비트코인 (BTC/USD)",
+          "latestLabel": "2026-09-19",
+          "updatedLabel": "2026-09-19"
+        },
+        {
+          "id": "update-eth",
+          "category": "암호화폐",
+          "title": "이더리움 (ETH/USD)",
+          "latestLabel": "2026-09-19",
+          "updatedLabel": "2026-09-19"
+        },
+        {
+          "id": "update-usdkrw",
+          "category": "환율",
+          "title": "달러/원 환율",
+          "latestLabel": "Sat, 19 Sep 2026",
+          "updatedLabel": "2026-09-19"
+        }
+      ]
+    }
+  ],
   "notableIndicators": [],
   "investmentIdeas": [],
-  "categoryStatuses": [],
+  "categoryStatuses": [
+    {
+      "id": "암호화폐",
+      "name": "암호화폐",
+      "icon": "📊",
+      "status": "ok",
+      "total": 2,
+      "cadenceBreakdown": "일간 2",
+      "delayedCount": null,
+      "delayedNote": null
+    },
+    {
+      "id": "환율",
+      "name": "환율",
+      "icon": "📊",
+      "status": "ok",
+      "total": 1,
+      "cadenceBreakdown": "일간 1",
+      "delayedCount": null,
+      "delayedNote": null
+    },
+    {
+      "id": "주가지수",
+      "name": "주가지수",
+      "icon": "📊",
+      "status": "delayed",
+      "total": 3,
+      "cadenceBreakdown": "일간 3",
+      "delayedCount": 3,
+      "delayedNote": "코스피 지수, S&P 500, 나스닥 종합지수"
+    },
+    {
+      "id": "원자재",
+      "name": "원자재",
+      "icon": "📊",
+      "status": "delayed",
+      "total": 2,
+      "cadenceBreakdown": "일간 2",
+      "delayedCount": 2,
+      "delayedNote": "WTI 원유, 금 (Gold)"
+    }
+  ],
   "totals": {
-    "totalIndicators": 0,
-    "delayedIndicators": 0,
-    "notableCount": { "critical": 0, "serious": 0, "info": 0, "total": 0 }
+    "totalIndicators": 8,
+    "delayedIndicators": 5,
+    "notableCount": {
+      "critical": 0,
+      "serious": 0,
+      "info": 0,
+      "total": 0
+    }
   }
 }
