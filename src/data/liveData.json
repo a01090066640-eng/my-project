@@ -2,54 +2,125 @@
   "dashboardMeta": {
     "title": "내 지표 대시보드",
     "subtitle": "매일 자동 수집되는 암호화폐·환율·주가지수·원자재 지표",
-    "generatedAt": "2026-09-20 22:34 UTC",
+    "generatedAt": "2026-09-21 22:36 UTC",
     "dataMode": "live"
   },
   "actionItems": [],
   "recentUpdates": [
     {
       "cadence": "일간",
-      "count": 5,
+      "count": 8,
       "items": [
         {
           "id": "update-btc",
           "category": "암호화폐",
           "title": "비트코인 (BTC/USD)",
-          "latestLabel": "2026-09-20",
-          "updatedLabel": "2026-09-20"
+          "latestLabel": "2026-09-21",
+          "updatedLabel": "2026-09-21"
         },
         {
           "id": "update-eth",
           "category": "암호화폐",
           "title": "이더리움 (ETH/USD)",
-          "latestLabel": "2026-09-20",
-          "updatedLabel": "2026-09-20"
+          "latestLabel": "2026-09-21",
+          "updatedLabel": "2026-09-21"
         },
         {
           "id": "update-usdkrw",
           "category": "환율",
           "title": "달러/원 환율",
-          "latestLabel": "2026-09-20",
-          "updatedLabel": "2026-09-20"
+          "latestLabel": "2026-09-21",
+          "updatedLabel": "2026-09-21"
+        },
+        {
+          "id": "update-kospi",
+          "category": "주가지수",
+          "title": "코스피 지수",
+          "latestLabel": "2026-09-21",
+          "updatedLabel": "2026-09-21"
+        },
+        {
+          "id": "update-sp500",
+          "category": "주가지수",
+          "title": "S&P 500",
+          "latestLabel": "2026-09-21",
+          "updatedLabel": "2026-09-21"
+        },
+        {
+          "id": "update-nasdaq",
+          "category": "주가지수",
+          "title": "나스닥 종합지수",
+          "latestLabel": "2026-09-21",
+          "updatedLabel": "2026-09-21"
         },
         {
           "id": "update-wti",
           "category": "원자재",
           "title": "WTI 원유",
-          "latestLabel": "2026-09-20",
-          "updatedLabel": "2026-09-20"
+          "latestLabel": "2026-09-21",
+          "updatedLabel": "2026-09-21"
         },
         {
           "id": "update-gold",
           "category": "원자재",
           "title": "금 (Gold)",
-          "latestLabel": "2026-09-20",
-          "updatedLabel": "2026-09-20"
+          "latestLabel": "2026-09-21",
+          "updatedLabel": "2026-09-21"
         }
       ]
     }
   ],
   "notableIndicators": [
+    {
+      "category": "암호화폐",
+      "items": [
+        {
+          "id": "notable-btc",
+          "category": "암호화폐",
+          "severity": "serious",
+          "title": "비트코인 (BTC/USD) 1일 급등",
+          "value": "$86,399.00 (+6.49%)",
+          "asOf": "2026-09-21",
+          "updatedAsOf": "2026-09-21",
+          "detail": "2026-09-21 기준"
+        }
+      ]
+    },
+    {
+      "category": "주가지수",
+      "items": [
+        {
+          "id": "notable-kospi",
+          "category": "주가지수",
+          "severity": "critical",
+          "title": "코스피 지수 1일 급등",
+          "value": "7,007.72pt (+4.84%)",
+          "asOf": "2026-09-21",
+          "updatedAsOf": "2026-09-21",
+          "detail": "2026-09-21 기준"
+        },
+        {
+          "id": "notable-sp500",
+          "category": "주가지수",
+          "severity": "serious",
+          "title": "S&P 500 1일 급등",
+          "value": "7,764.70pt (+1.90%)",
+          "asOf": "2026-09-21",
+          "updatedAsOf": "2026-09-21",
+          "detail": "2026-09-21 기준"
+        },
+        {
+          "id": "notable-nasdaq",
+          "category": "주가지수",
+          "severity": "critical",
+          "title": "나스닥 종합지수 1일 급등",
+          "value": "27,122.09pt (+3.57%)",
+          "asOf": "2026-09-21",
+          "updatedAsOf": "2026-09-21",
+          "detail": "2026-09-21 기준"
+        }
+      ]
+    },
     {
       "category": "원자재",
       "items": [
@@ -58,10 +129,10 @@
           "category": "원자재",
           "severity": "critical",
           "title": "WTI 원유 1일 급락",
-          "value": "96.53 USD/bbl (-8.79%)",
-          "asOf": "2026-09-20",
-          "updatedAsOf": "2026-09-20",
-          "detail": "2026-09-20 기준"
+          "value": "91.95 USD/bbl (-10.23%)",
+          "asOf": "2026-09-21",
+          "updatedAsOf": "2026-09-21",
+          "detail": "2026-09-21 기준"
         }
       ]
     }
@@ -105,10 +176,10 @@
     "totalIndicators": 8,
     "delayedIndicators": 0,
     "notableCount": {
-      "critical": 1,
-      "serious": 0,
+      "critical": 3,
+      "serious": 2,
       "info": 0,
-      "total": 1
+      "total": 5
     }
   }
 }
