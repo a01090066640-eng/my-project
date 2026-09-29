@@ -2,70 +2,83 @@
   "dashboardMeta": {
     "title": "내 지표 대시보드",
     "subtitle": "매일 자동 수집되는 암호화폐·환율·주가지수·원자재 지표",
-    "generatedAt": "2026-09-28 22:36 UTC",
+    "generatedAt": "2026-09-29 22:37 UTC",
     "dataMode": "live"
   },
-  "actionItems": [],
+  "actionItems": [
+    {
+      "id": "error-btc",
+      "severity": "serious",
+      "category": "암호화폐",
+      "title": "비트코인 (BTC/USD) — 데이터 수집 실패",
+      "latestDate": "2026-09-28",
+      "staleness": "마지막 성공 기준",
+      "sourceSchedule": "소스: btc",
+      "jobName": "pipeline.fetch_all",
+      "jobStatus": "다른 지표는 정상적으로 갱신되었습니다",
+      "note": "HTTP 403 fetching https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true: Forbidden",
+      "command": "python3 pipeline/fetch_all.py"
+    },
+    {
+      "id": "error-eth",
+      "severity": "serious",
+      "category": "암호화폐",
+      "title": "이더리움 (ETH/USD) — 데이터 수집 실패",
+      "latestDate": "2026-09-28",
+      "staleness": "마지막 성공 기준",
+      "sourceSchedule": "소스: eth",
+      "jobName": "pipeline.fetch_all",
+      "jobStatus": "다른 지표는 정상적으로 갱신되었습니다",
+      "note": "HTTP 403 fetching https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd&include_24hr_change=true: Forbidden",
+      "command": "python3 pipeline/fetch_all.py"
+    }
+  ],
   "recentUpdates": [
     {
       "cadence": "일간",
-      "count": 8,
+      "count": 6,
       "items": [
-        {
-          "id": "update-btc",
-          "category": "암호화폐",
-          "title": "비트코인 (BTC/USD)",
-          "latestLabel": "2026-09-28",
-          "updatedLabel": "2026-09-28"
-        },
-        {
-          "id": "update-eth",
-          "category": "암호화폐",
-          "title": "이더리움 (ETH/USD)",
-          "latestLabel": "2026-09-28",
-          "updatedLabel": "2026-09-28"
-        },
         {
           "id": "update-usdkrw",
           "category": "환율",
           "title": "달러/원 환율",
-          "latestLabel": "2026-09-28",
-          "updatedLabel": "2026-09-28"
+          "latestLabel": "2026-09-29",
+          "updatedLabel": "2026-09-29"
         },
         {
           "id": "update-kospi",
           "category": "주가지수",
           "title": "코스피 지수",
-          "latestLabel": "2026-09-28",
-          "updatedLabel": "2026-09-28"
+          "latestLabel": "2026-09-29",
+          "updatedLabel": "2026-09-29"
         },
         {
           "id": "update-sp500",
           "category": "주가지수",
           "title": "S&P 500",
-          "latestLabel": "2026-09-28",
-          "updatedLabel": "2026-09-28"
+          "latestLabel": "2026-09-29",
+          "updatedLabel": "2026-09-29"
         },
         {
           "id": "update-nasdaq",
           "category": "주가지수",
           "title": "나스닥 종합지수",
-          "latestLabel": "2026-09-28",
-          "updatedLabel": "2026-09-28"
+          "latestLabel": "2026-09-29",
+          "updatedLabel": "2026-09-29"
         },
         {
           "id": "update-wti",
           "category": "원자재",
           "title": "WTI 원유",
-          "latestLabel": "2026-09-28",
-          "updatedLabel": "2026-09-28"
+          "latestLabel": "2026-09-29",
+          "updatedLabel": "2026-09-29"
         },
         {
           "id": "update-gold",
           "category": "원자재",
           "title": "금 (Gold)",
-          "latestLabel": "2026-09-28",
-          "updatedLabel": "2026-09-28"
+          "latestLabel": "2026-09-29",
+          "updatedLabel": "2026-09-29"
         }
       ]
     }
@@ -75,14 +88,14 @@
       "category": "주가지수",
       "items": [
         {
-          "id": "notable-kospi",
+          "id": "notable-nasdaq",
           "category": "주가지수",
           "severity": "serious",
-          "title": "코스피 지수 1일 급등",
-          "value": "6,889.74pt (+2.60%)",
-          "asOf": "2026-09-28",
-          "updatedAsOf": "2026-09-28",
-          "detail": "2026-09-28 기준"
+          "title": "나스닥 종합지수 1일 급락",
+          "value": "26,797.54pt (-1.64%)",
+          "asOf": "2026-09-29",
+          "updatedAsOf": "2026-09-29",
+          "detail": "2026-09-29 기준"
         }
       ]
     },
@@ -90,14 +103,14 @@
       "category": "원자재",
       "items": [
         {
-          "id": "notable-gold",
+          "id": "notable-wti",
           "category": "원자재",
           "severity": "serious",
-          "title": "금 (Gold) 1일 급락",
-          "value": "4,156.80 USD/oz (-3.74%)",
-          "asOf": "2026-09-28",
-          "updatedAsOf": "2026-09-28",
-          "detail": "2026-09-28 기준"
+          "title": "WTI 원유 1일 급락",
+          "value": "88.99 USD/bbl (-5.94%)",
+          "asOf": "2026-09-29",
+          "updatedAsOf": "2026-09-29",
+          "detail": "2026-09-29 기준"
         }
       ]
     }
@@ -108,9 +121,11 @@
       "id": "암호화폐",
       "name": "암호화폐",
       "icon": "📊",
-      "status": "ok",
+      "status": "delayed",
       "total": 2,
-      "cadenceBreakdown": "일간 2"
+      "cadenceBreakdown": "일간 2",
+      "delayedCount": 2,
+      "delayedNote": "비트코인 (BTC/USD), 이더리움 (ETH/USD)"
     },
     {
       "id": "환율",
@@ -139,7 +154,7 @@
   ],
   "totals": {
     "totalIndicators": 8,
-    "delayedIndicators": 0,
+    "delayedIndicators": 2,
     "notableCount": {
       "critical": 0,
       "serious": 2,
