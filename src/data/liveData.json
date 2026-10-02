@@ -2,7 +2,7 @@
   "dashboardMeta": {
     "title": "내 지표 대시보드",
     "subtitle": "매일 자동 수집되는 암호화폐·환율·주가지수·원자재 지표",
-    "generatedAt": "2026-10-01 22:38 UTC",
+    "generatedAt": "2026-10-02 22:38 UTC",
     "dataMode": "live"
   },
   "actionItems": [],
@@ -15,57 +15,57 @@
           "id": "update-btc",
           "category": "암호화폐",
           "title": "비트코인 (BTC/USD)",
-          "latestLabel": "2026-10-01",
-          "updatedLabel": "2026-10-01"
+          "latestLabel": "2026-10-02",
+          "updatedLabel": "2026-10-02"
         },
         {
           "id": "update-eth",
           "category": "암호화폐",
           "title": "이더리움 (ETH/USD)",
-          "latestLabel": "2026-10-01",
-          "updatedLabel": "2026-10-01"
+          "latestLabel": "2026-10-02",
+          "updatedLabel": "2026-10-02"
         },
         {
           "id": "update-usdkrw",
           "category": "환율",
           "title": "달러/원 환율",
-          "latestLabel": "2026-10-01",
-          "updatedLabel": "2026-10-01"
+          "latestLabel": "2026-10-02",
+          "updatedLabel": "2026-10-02"
         },
         {
           "id": "update-kospi",
           "category": "주가지수",
           "title": "코스피 지수",
-          "latestLabel": "2026-10-01",
-          "updatedLabel": "2026-10-01"
+          "latestLabel": "2026-10-02",
+          "updatedLabel": "2026-10-02"
         },
         {
           "id": "update-sp500",
           "category": "주가지수",
           "title": "S&P 500",
-          "latestLabel": "2026-10-01",
-          "updatedLabel": "2026-10-01"
+          "latestLabel": "2026-10-02",
+          "updatedLabel": "2026-10-02"
         },
         {
           "id": "update-nasdaq",
           "category": "주가지수",
           "title": "나스닥 종합지수",
-          "latestLabel": "2026-10-01",
-          "updatedLabel": "2026-10-01"
+          "latestLabel": "2026-10-02",
+          "updatedLabel": "2026-10-02"
         },
         {
           "id": "update-wti",
           "category": "원자재",
           "title": "WTI 원유",
-          "latestLabel": "2026-10-01",
-          "updatedLabel": "2026-10-01"
+          "latestLabel": "2026-10-02",
+          "updatedLabel": "2026-10-02"
         },
         {
           "id": "update-gold",
           "category": "원자재",
           "title": "금 (Gold)",
-          "latestLabel": "2026-10-01",
-          "updatedLabel": "2026-10-01"
+          "latestLabel": "2026-10-02",
+          "updatedLabel": "2026-10-02"
         }
       ]
     }
