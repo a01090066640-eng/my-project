@@ -2,47 +2,84 @@
   "dashboardMeta": {
     "title": "내 지표 대시보드",
     "subtitle": "매일 자동 수집되는 암호화폐·환율·주가지수·원자재 지표",
-    "generatedAt": "2026-10-04 22:38 UTC",
+    "generatedAt": "2026-10-05 22:37 UTC",
     "dataMode": "live"
   },
   "actionItems": [],
   "recentUpdates": [
     {
       "cadence": "일간",
-      "count": 4,
+      "count": 7,
       "items": [
         {
           "id": "update-btc",
           "category": "암호화폐",
           "title": "비트코인 (BTC/USD)",
-          "latestLabel": "2026-10-04",
-          "updatedLabel": "2026-10-04"
+          "latestLabel": "2026-10-05",
+          "updatedLabel": "2026-10-05"
         },
         {
           "id": "update-eth",
           "category": "암호화폐",
           "title": "이더리움 (ETH/USD)",
-          "latestLabel": "2026-10-04",
-          "updatedLabel": "2026-10-04"
+          "latestLabel": "2026-10-05",
+          "updatedLabel": "2026-10-05"
+        },
+        {
+          "id": "update-usdkrw",
+          "category": "환율",
+          "title": "달러/원 환율",
+          "latestLabel": "2026-10-05",
+          "updatedLabel": "2026-10-05"
+        },
+        {
+          "id": "update-sp500",
+          "category": "주가지수",
+          "title": "S&P 500",
+          "latestLabel": "2026-10-05",
+          "updatedLabel": "2026-10-05"
+        },
+        {
+          "id": "update-nasdaq",
+          "category": "주가지수",
+          "title": "나스닥 종합지수",
+          "latestLabel": "2026-10-05",
+          "updatedLabel": "2026-10-05"
         },
         {
           "id": "update-wti",
           "category": "원자재",
           "title": "WTI 원유",
-          "latestLabel": "2026-10-04",
-          "updatedLabel": "2026-10-04"
+          "latestLabel": "2026-10-05",
+          "updatedLabel": "2026-10-05"
         },
         {
           "id": "update-gold",
           "category": "원자재",
           "title": "금 (Gold)",
-          "latestLabel": "2026-10-04",
-          "updatedLabel": "2026-10-04"
+          "latestLabel": "2026-10-05",
+          "updatedLabel": "2026-10-05"
         }
       ]
     }
   ],
-  "notableIndicators": [],
+  "notableIndicators": [
+    {
+      "category": "주가지수",
+      "items": [
+        {
+          "id": "notable-nasdaq",
+          "category": "주가지수",
+          "severity": "serious",
+          "title": "나스닥 종합지수 1일 급등",
+          "value": "27,477.31pt (+2.45%)",
+          "asOf": "2026-10-05",
+          "updatedAsOf": "2026-10-05",
+          "detail": "2026-10-05 기준"
+        }
+      ]
+    }
+  ],
   "investmentIdeas": [],
   "categoryStatuses": [
     {
@@ -83,9 +120,9 @@
     "delayedIndicators": 0,
     "notableCount": {
       "critical": 0,
-      "serious": 0,
+      "serious": 1,
       "info": 0,
-      "total": 0
+      "total": 1
     }
   }
 }
