@@ -2,7 +2,7 @@
   "dashboardMeta": {
     "title": "내 지표 대시보드",
     "subtitle": "매일 자동 수집되는 암호화폐·환율·주가지수·원자재 지표",
-    "generatedAt": "2026-10-13 22:52 UTC",
+    "generatedAt": "2026-10-14 22:52 UTC",
     "dataMode": "live"
   },
   "actionItems": [],
@@ -15,57 +15,57 @@
           "id": "update-btc",
           "category": "암호화폐",
           "title": "비트코인 (BTC/USD)",
-          "latestLabel": "2026-10-13",
-          "updatedLabel": "2026-10-13"
+          "latestLabel": "2026-10-14",
+          "updatedLabel": "2026-10-14"
         },
         {
           "id": "update-eth",
           "category": "암호화폐",
           "title": "이더리움 (ETH/USD)",
-          "latestLabel": "2026-10-13",
-          "updatedLabel": "2026-10-13"
+          "latestLabel": "2026-10-14",
+          "updatedLabel": "2026-10-14"
         },
         {
           "id": "update-usdkrw",
           "category": "환율",
           "title": "달러/원 환율",
-          "latestLabel": "2026-10-12",
-          "updatedLabel": "2026-10-13"
+          "latestLabel": "2026-10-14",
+          "updatedLabel": "2026-10-14"
         },
         {
           "id": "update-kospi",
           "category": "주가지수",
           "title": "코스피 지수",
-          "latestLabel": "2026-10-13",
-          "updatedLabel": "2026-10-13"
+          "latestLabel": "2026-10-14",
+          "updatedLabel": "2026-10-14"
         },
         {
           "id": "update-sp500",
           "category": "주가지수",
           "title": "S&P 500",
-          "latestLabel": "2026-10-13",
-          "updatedLabel": "2026-10-13"
+          "latestLabel": "2026-10-14",
+          "updatedLabel": "2026-10-14"
         },
         {
           "id": "update-nasdaq",
           "category": "주가지수",
           "title": "나스닥 종합지수",
-          "latestLabel": "2026-10-13",
-          "updatedLabel": "2026-10-13"
+          "latestLabel": "2026-10-14",
+          "updatedLabel": "2026-10-14"
         },
         {
           "id": "update-wti",
           "category": "원자재",
           "title": "WTI 원유",
-          "latestLabel": "2026-10-13",
-          "updatedLabel": "2026-10-13"
+          "latestLabel": "2026-10-14",
+          "updatedLabel": "2026-10-14"
         },
         {
           "id": "update-gold",
           "category": "원자재",
           "title": "금 (Gold)",
-          "latestLabel": "2026-10-13",
-          "updatedLabel": "2026-10-13"
+          "latestLabel": "2026-10-14",
+          "updatedLabel": "2026-10-14"
         }
       ]
     }
@@ -79,10 +79,20 @@
           "category": "주가지수",
           "severity": "critical",
           "title": "코스피 지수 1일 급락",
-          "value": "6,035.35pt (-13.83%)",
-          "asOf": "2026-10-13",
-          "updatedAsOf": "2026-10-13",
-          "detail": "2026-10-13 기준"
+          "value": "6,008.81pt (-13.44%)",
+          "asOf": "2026-10-14",
+          "updatedAsOf": "2026-10-14",
+          "detail": "2026-10-14 기준"
+        },
+        {
+          "id": "notable-nasdaq",
+          "category": "주가지수",
+          "severity": "critical",
+          "title": "나스닥 종합지수 1일 급락",
+          "value": "26,692.87pt (-3.07%)",
+          "asOf": "2026-10-14",
+          "updatedAsOf": "2026-10-14",
+          "detail": "2026-10-14 기준"
         }
       ]
     },
@@ -94,10 +104,20 @@
           "category": "원자재",
           "severity": "serious",
           "title": "WTI 원유 1일 급등",
-          "value": "94.70 USD/bbl (+3.51%)",
-          "asOf": "2026-10-13",
-          "updatedAsOf": "2026-10-13",
-          "detail": "2026-10-13 기준"
+          "value": "95.02 USD/bbl (+3.45%)",
+          "asOf": "2026-10-14",
+          "updatedAsOf": "2026-10-14",
+          "detail": "2026-10-14 기준"
+        },
+        {
+          "id": "notable-gold",
+          "category": "원자재",
+          "severity": "serious",
+          "title": "금 (Gold) 1일 급락",
+          "value": "4,129.20 USD/oz (-2.07%)",
+          "asOf": "2026-10-14",
+          "updatedAsOf": "2026-10-14",
+          "detail": "2026-10-14 기준"
         }
       ]
     }
@@ -141,10 +161,10 @@
     "totalIndicators": 8,
     "delayedIndicators": 0,
     "notableCount": {
-      "critical": 1,
-      "serious": 1,
+      "critical": 2,
+      "serious": 2,
       "info": 0,
-      "total": 2
+      "total": 4
     }
   }
 }
