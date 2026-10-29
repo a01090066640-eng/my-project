@@ -2,7 +2,7 @@
   "dashboardMeta": {
     "title": "내 지표 대시보드",
     "subtitle": "매일 자동 수집되는 암호화폐·환율·주가지수·원자재 지표",
-    "generatedAt": "2026-10-28 01:30 UTC",
+    "generatedAt": "2026-10-29 01:53 UTC",
     "dataMode": "live"
   },
   "actionItems": [],
@@ -15,62 +15,77 @@
           "id": "update-btc",
           "category": "암호화폐",
           "title": "비트코인 (BTC/USD)",
-          "latestLabel": "2026-10-28",
-          "updatedLabel": "2026-10-28"
+          "latestLabel": "2026-10-29",
+          "updatedLabel": "2026-10-29"
         },
         {
           "id": "update-eth",
           "category": "암호화폐",
           "title": "이더리움 (ETH/USD)",
-          "latestLabel": "2026-10-28",
-          "updatedLabel": "2026-10-28"
+          "latestLabel": "2026-10-29",
+          "updatedLabel": "2026-10-29"
         },
         {
           "id": "update-usdkrw",
           "category": "환율",
           "title": "달러/원 환율",
-          "latestLabel": "2026-10-28",
-          "updatedLabel": "2026-10-28"
+          "latestLabel": "2026-10-29",
+          "updatedLabel": "2026-10-29"
         },
         {
           "id": "update-kospi",
           "category": "주가지수",
           "title": "코스피 지수",
-          "latestLabel": "2026-10-28",
-          "updatedLabel": "2026-10-28"
+          "latestLabel": "2026-10-29",
+          "updatedLabel": "2026-10-29"
         },
         {
           "id": "update-sp500",
           "category": "주가지수",
           "title": "S&P 500",
-          "latestLabel": "2026-10-27",
-          "updatedLabel": "2026-10-28"
+          "latestLabel": "2026-10-28",
+          "updatedLabel": "2026-10-29"
         },
         {
           "id": "update-nasdaq",
           "category": "주가지수",
           "title": "나스닥 종합지수",
-          "latestLabel": "2026-10-27",
-          "updatedLabel": "2026-10-28"
+          "latestLabel": "2026-10-28",
+          "updatedLabel": "2026-10-29"
         },
         {
           "id": "update-wti",
           "category": "원자재",
           "title": "WTI 원유",
-          "latestLabel": "2026-10-28",
-          "updatedLabel": "2026-10-28"
+          "latestLabel": "2026-10-29",
+          "updatedLabel": "2026-10-29"
         },
         {
           "id": "update-gold",
           "category": "원자재",
           "title": "금 (Gold)",
-          "latestLabel": "2026-10-28",
-          "updatedLabel": "2026-10-28"
+          "latestLabel": "2026-10-29",
+          "updatedLabel": "2026-10-29"
         }
       ]
     }
   ],
   "notableIndicators": [
+    {
+      "category": "환율",
+      "items": [
+        {
+          "id": "notable-usdkrw",
+          "category": "환율",
+          "severity": "serious",
+          "title": "달러/원 환율 1일 급등",
+          "value": "1,340.24 KRW (+1.01%)",
+          "asOf": "2026-10-29",
+          "updatedAsOf": "2026-10-29",
+          "detail": "2026-10-29 기준"
+        }
+      ]
+    },
     {
       "category": "주가지수",
       "items": [
@@ -79,10 +94,10 @@
           "category": "주가지수",
           "severity": "critical",
           "title": "코스피 지수 1일 급등",
-          "value": "5,917.31pt (+3.17%)",
-          "asOf": "2026-10-28",
-          "updatedAsOf": "2026-10-28",
-          "detail": "2026-10-28 기준"
+          "value": "5,868.07pt (+6.04%)",
+          "asOf": "2026-10-29",
+          "updatedAsOf": "2026-10-29",
+          "detail": "2026-10-29 기준"
         }
       ]
     }
@@ -127,9 +142,9 @@
     "delayedIndicators": 0,
     "notableCount": {
       "critical": 1,
-      "serious": 0,
+      "serious": 1,
       "info": 0,
-      "total": 1
+      "total": 2
     }
   }
 }
