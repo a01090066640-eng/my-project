@@ -2,70 +2,49 @@
   "dashboardMeta": {
     "title": "내 지표 대시보드",
     "subtitle": "매일 자동 수집되는 암호화폐·환율·주가지수·원자재 지표",
-    "generatedAt": "2026-11-07 02:06 UTC",
+    "generatedAt": "2026-11-08 01:38 UTC",
     "dataMode": "live"
   },
   "actionItems": [],
   "recentUpdates": [
     {
       "cadence": "일간",
-      "count": 8,
+      "count": 5,
       "items": [
         {
           "id": "update-btc",
           "category": "암호화폐",
           "title": "비트코인 (BTC/USD)",
-          "latestLabel": "2026-11-07",
-          "updatedLabel": "2026-11-07"
+          "latestLabel": "2026-11-08",
+          "updatedLabel": "2026-11-08"
         },
         {
           "id": "update-eth",
           "category": "암호화폐",
           "title": "이더리움 (ETH/USD)",
-          "latestLabel": "2026-11-07",
-          "updatedLabel": "2026-11-07"
+          "latestLabel": "2026-11-08",
+          "updatedLabel": "2026-11-08"
         },
         {
           "id": "update-usdkrw",
           "category": "환율",
           "title": "달러/원 환율",
-          "latestLabel": "2026-11-07",
-          "updatedLabel": "2026-11-07"
-        },
-        {
-          "id": "update-kospi",
-          "category": "주가지수",
-          "title": "코스피 지수",
-          "latestLabel": "2026-11-06",
-          "updatedLabel": "2026-11-07"
-        },
-        {
-          "id": "update-sp500",
-          "category": "주가지수",
-          "title": "S&P 500",
-          "latestLabel": "2026-11-06",
-          "updatedLabel": "2026-11-07"
-        },
-        {
-          "id": "update-nasdaq",
-          "category": "주가지수",
-          "title": "나스닥 종합지수",
-          "latestLabel": "2026-11-06",
-          "updatedLabel": "2026-11-07"
+          "latestLabel": "2026-11-08",
+          "updatedLabel": "2026-11-08"
         },
         {
           "id": "update-wti",
           "category": "원자재",
           "title": "WTI 원유",
           "latestLabel": "2026-11-06",
-          "updatedLabel": "2026-11-07"
+          "updatedLabel": "2026-11-08"
         },
         {
           "id": "update-gold",
           "category": "원자재",
           "title": "금 (Gold)",
           "latestLabel": "2026-11-06",
-          "updatedLabel": "2026-11-07"
+          "updatedLabel": "2026-11-08"
         }
       ]
     }
@@ -81,7 +60,7 @@
           "title": "코스피 지수 1일 급락",
           "value": "5,059.69pt (-11.71%)",
           "asOf": "2026-11-06",
-          "updatedAsOf": "2026-11-07",
+          "updatedAsOf": "2026-11-08",
           "detail": "2026-11-06 기준"
         },
         {
@@ -91,7 +70,7 @@
           "title": "S&P 500 1일 급락",
           "value": "7,376.86pt (-2.68%)",
           "asOf": "2026-11-06",
-          "updatedAsOf": "2026-11-07",
+          "updatedAsOf": "2026-11-08",
           "detail": "2026-11-06 기준"
         },
         {
@@ -101,7 +80,7 @@
           "title": "나스닥 종합지수 1일 급락",
           "value": "24,579.42pt (-3.37%)",
           "asOf": "2026-11-06",
-          "updatedAsOf": "2026-11-07",
+          "updatedAsOf": "2026-11-08",
           "detail": "2026-11-06 기준"
         }
       ]
@@ -112,11 +91,11 @@
         {
           "id": "notable-wti",
           "category": "원자재",
-          "severity": "critical",
+          "severity": "serious",
           "title": "WTI 원유 1일 급락",
-          "value": "90.34 USD/bbl (-6.34%)",
+          "value": "90.83 USD/bbl (-5.84%)",
           "asOf": "2026-11-06",
-          "updatedAsOf": "2026-11-07",
+          "updatedAsOf": "2026-11-08",
           "detail": "2026-11-06 기준"
         },
         {
@@ -124,9 +103,9 @@
           "category": "원자재",
           "severity": "serious",
           "title": "금 (Gold) 1일 급등",
-          "value": "4,079.50 USD/oz (+2.77%)",
+          "value": "4,074.90 USD/oz (+2.65%)",
           "asOf": "2026-11-06",
-          "updatedAsOf": "2026-11-07",
+          "updatedAsOf": "2026-11-08",
           "detail": "2026-11-06 기준"
         }
       ]
@@ -171,8 +150,8 @@
     "totalIndicators": 8,
     "delayedIndicators": 0,
     "notableCount": {
-      "critical": 3,
-      "serious": 2,
+      "critical": 2,
+      "serious": 3,
       "info": 0,
       "total": 5
     }
