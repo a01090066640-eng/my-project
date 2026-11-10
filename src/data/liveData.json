@@ -2,61 +2,90 @@
   "dashboardMeta": {
     "title": "내 지표 대시보드",
     "subtitle": "매일 자동 수집되는 암호화폐·환율·주가지수·원자재 지표",
-    "generatedAt": "2026-11-09 01:47 UTC",
+    "generatedAt": "2026-11-10 04:13 UTC",
     "dataMode": "live"
   },
   "actionItems": [],
   "recentUpdates": [
     {
       "cadence": "일간",
-      "count": 6,
+      "count": 8,
       "items": [
         {
           "id": "update-btc",
           "category": "암호화폐",
           "title": "비트코인 (BTC/USD)",
-          "latestLabel": "2026-11-09",
-          "updatedLabel": "2026-11-09"
+          "latestLabel": "2026-11-10",
+          "updatedLabel": "2026-11-10"
         },
         {
           "id": "update-eth",
           "category": "암호화폐",
           "title": "이더리움 (ETH/USD)",
-          "latestLabel": "2026-11-09",
-          "updatedLabel": "2026-11-09"
+          "latestLabel": "2026-11-10",
+          "updatedLabel": "2026-11-10"
         },
         {
           "id": "update-usdkrw",
           "category": "환율",
           "title": "달러/원 환율",
-          "latestLabel": "2026-11-09",
-          "updatedLabel": "2026-11-09"
+          "latestLabel": "2026-11-10",
+          "updatedLabel": "2026-11-10"
         },
         {
           "id": "update-kospi",
           "category": "주가지수",
           "title": "코스피 지수",
+          "latestLabel": "2026-11-10",
+          "updatedLabel": "2026-11-10"
+        },
+        {
+          "id": "update-sp500",
+          "category": "주가지수",
+          "title": "S&P 500",
           "latestLabel": "2026-11-09",
-          "updatedLabel": "2026-11-09"
+          "updatedLabel": "2026-11-10"
+        },
+        {
+          "id": "update-nasdaq",
+          "category": "주가지수",
+          "title": "나스닥 종합지수",
+          "latestLabel": "2026-11-09",
+          "updatedLabel": "2026-11-10"
         },
         {
           "id": "update-wti",
           "category": "원자재",
           "title": "WTI 원유",
-          "latestLabel": "2026-11-09",
-          "updatedLabel": "2026-11-09"
+          "latestLabel": "2026-11-10",
+          "updatedLabel": "2026-11-10"
         },
         {
           "id": "update-gold",
           "category": "원자재",
           "title": "금 (Gold)",
-          "latestLabel": "2026-11-09",
-          "updatedLabel": "2026-11-09"
+          "latestLabel": "2026-11-10",
+          "updatedLabel": "2026-11-10"
         }
       ]
     }
   ],
   "notableIndicators": [
+    {
+      "category": "환율",
+      "items": [
+        {
+          "id": "notable-usdkrw",
+          "category": "환율",
+          "severity": "serious",
+          "title": "달러/원 환율 1일 급락",
+          "value": "1,344.79 KRW (-1.22%)",
+          "asOf": "2026-11-10",
+          "updatedAsOf": "2026-11-10",
+          "detail": "2026-11-10 기준"
+        }
+      ]
+    },
     {
       "category": "주가지수",
       "items": [
@@ -65,55 +94,10 @@
           "category": "주가지수",
           "severity": "critical",
           "title": "코스피 지수 1일 급락",
-          "value": "5,056.35pt (-13.70%)",
-          "asOf": "2026-11-09",
-          "updatedAsOf": "2026-11-09",
-          "detail": "2026-11-09 기준"
-        },
-        {
-          "id": "notable-sp500",
-          "category": "주가지수",
-          "severity": "serious",
-          "title": "S&P 500 1일 급락",
-          "value": "7,376.86pt (-2.68%)",
-          "asOf": "2026-11-06",
-          "updatedAsOf": "2026-11-09",
-          "detail": "2026-11-06 기준"
-        },
-        {
-          "id": "notable-nasdaq",
-          "category": "주가지수",
-          "severity": "critical",
-          "title": "나스닥 종합지수 1일 급락",
-          "value": "24,579.42pt (-3.37%)",
-          "asOf": "2026-11-06",
-          "updatedAsOf": "2026-11-09",
-          "detail": "2026-11-06 기준"
-        }
-      ]
-    },
-    {
-      "category": "원자재",
-      "items": [
-        {
-          "id": "notable-wti",
-          "category": "원자재",
-          "severity": "serious",
-          "title": "WTI 원유 1일 급락",
-          "value": "90.45 USD/bbl (-5.87%)",
-          "asOf": "2026-11-09",
-          "updatedAsOf": "2026-11-09",
-          "detail": "2026-11-09 기준"
-        },
-        {
-          "id": "notable-gold",
-          "category": "원자재",
-          "severity": "critical",
-          "title": "금 (Gold) 1일 급등",
-          "value": "4,115.10 USD/oz (+4.43%)",
-          "asOf": "2026-11-09",
-          "updatedAsOf": "2026-11-09",
-          "detail": "2026-11-09 기준"
+          "value": "5,207.22pt (-7.82%)",
+          "asOf": "2026-11-10",
+          "updatedAsOf": "2026-11-10",
+          "detail": "2026-11-10 기준"
         }
       ]
     }
@@ -157,10 +141,10 @@
     "totalIndicators": 8,
     "delayedIndicators": 0,
     "notableCount": {
-      "critical": 3,
-      "serious": 2,
+      "critical": 1,
+      "serious": 1,
       "info": 0,
-      "total": 5
+      "total": 2
     }
   }
 }
